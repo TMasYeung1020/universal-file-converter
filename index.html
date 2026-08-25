@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="纯客户端的文件格式转换器 — 文档、图片、数据格式全覆盖，文件不上传任何服务器。" />
+    <meta name="theme-color" content="#6366f1" />
+    <title>Universal File Converter</title>
+    <script>
+      // Apply theme before paint to avoid a flash. Svelte's ThemeToggle will
+      // re-apply (idempotent) once the app mounts.
+      (function () {
+        try {
+          var saved = localStorage.getItem('ufc-theme');
+          var dark =
+            saved === 'dark' ||
+            (saved === null &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dark) document.documentElement.classList.add('dark');
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
