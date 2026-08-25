@@ -63,10 +63,10 @@
       label: '图片 & 媒体处理',
       color: '30',
       tools: [
-        { name: '图片压缩 & 裁切', desc: 'Canvas toDataURL 本地压缩', route: '/tools/image-compress', live: false },
-        { name: '浮水印添加器', desc: '文字 / Logo 叠加并导出', route: '/tools/watermark', live: false },
-        { name: '纯色 / 绿幕去背', desc: 'RGBA 像素色差过滤', route: '/tools/remove-bg', live: false },
-        { name: 'AVIF 转换', desc: '浏览器端压缩新格式', route: '/tools/avif', live: false },
+        { name: '图片压缩 & 裁切', desc: 'Canvas toDataURL 本地压缩', route: '/tools/image-compress', live: true },
+        { name: '浮水印添加器', desc: '文字 / Logo 叠加并导出', route: '/tools/watermark', live: true },
+        { name: '纯色 / 绿幕去背', desc: 'RGBA 像素色差过滤', route: '/tools/remove-bg', live: true },
+        { name: 'AVIF 转换', desc: '浏览器端压缩新格式', route: '/tools/avif', live: true },
       ],
     },
     {

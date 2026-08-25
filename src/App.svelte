@@ -18,6 +18,10 @@
   import MortgagePage from './pages/tools/MortgagePage.svelte';
   import TdeePage from './pages/tools/TdeePage.svelte';
   import UnitsPage from './pages/tools/UnitsPage.svelte';
+  import ImageCompressPage from './pages/tools/ImageCompressPage.svelte';
+  import WatermarkPage from './pages/tools/WatermarkPage.svelte';
+  import RemoveBgPage from './pages/tools/RemoveBgPage.svelte';
+  import AvifPage from './pages/tools/AvifPage.svelte';
 
   function hashToRoute(hash: string): string {
     // Strip the leading '#' so we get '/convert', '/', etc.
@@ -82,6 +86,14 @@
       <TdeePage />
     {:else if route === '/tools/units'}
       <UnitsPage />
+    {:else if route === '/tools/image-compress'}
+      <ImageCompressPage />
+    {:else if route === '/tools/watermark'}
+      <WatermarkPage />
+    {:else if route === '/tools/remove-bg'}
+      <RemoveBgPage />
+    {:else if route === '/tools/avif'}
+      <AvifPage />
     {:else}
       <div class="not-found">
         <div class="icon">🚧</div>
