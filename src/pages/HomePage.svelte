@@ -1,7 +1,4 @@
 <script lang="ts">
-  // Hub / home page. Each tool category is a card that links to its
-  // section. Tools that are not yet implemented show a "coming soon" badge.
-
   interface Tool {
     name: string;
     desc: string;
@@ -12,7 +9,7 @@
   interface Category {
     icon: string;
     label: string;
-    color: string; /* CSS hue, used for the gradient accent */
+    color: string;
     tools: Tool[];
   }
 
@@ -78,41 +75,72 @@
       ],
     },
   ];
+
+  let query = $state('');
+
+  const filteredCategories = $derived.by(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return CATEGORIES;
+    return CATEGORIES.map(cat => ({
+      ...cat,
+      tools: cat.tools.filter(t =>
+        t.name.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q)
+      ),
+    })).filter(cat => cat.tools.length > 0);
+  });
 </script>
 
 <div class="hub">
   <div class="hero">
     <h2>選一個工具，馬上開始</h2>
     <p>所有工具都在瀏覽器本地運行，檔案不上傳任何伺服器。</p>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input
+        class="search-input"
+        type="search"
+        placeholder="搜尋工具…"
+        bind:value={query}
+        autocomplete="off"
+        spellcheck="false"
+      />
+      {#if query}
+        <button class="search-clear" onclick={() => { query = ''; }} aria-label="清除搜尋">×</button>
+      {/if}
+    </div>
   </div>
 
-  <div class="categories">
-    {#each CATEGORIES as cat}
-      <section class="cat" style="--hue: {cat.color}">
-        <div class="cat-head">
-          <span class="cat-icon">{cat.icon}</span>
-          <h3>{cat.label}</h3>
-        </div>
-        <div class="tools">
-          {#each cat.tools as tool}
-            {#if tool.live}
-              <a class="tool-card" href="#{tool.route}">
-                <span class="tool-name">{tool.name}</span>
-                <span class="tool-desc">{tool.desc}</span>
-                <span class="badge live">✓ 可用</span>
-              </a>
-            {:else}
-              <div class="tool-card soon">
-                <span class="tool-name">{tool.name}</span>
-                <span class="tool-desc">{tool.desc}</span>
-                <span class="badge soon-badge">開發中</span>
-              </div>
-            {/if}
-          {/each}
-        </div>
-      </section>
-    {/each}
-  </div>
+  {#if filteredCategories.length === 0}
+    <p class="no-results">找不到「{query}」相關工具。</p>
+  {:else}
+    <div class="categories">
+      {#each filteredCategories as cat}
+        <section class="cat" style="--hue: {cat.color}">
+          <div class="cat-head">
+            <span class="cat-icon">{cat.icon}</span>
+            <h3>{cat.label}</h3>
+          </div>
+          <div class="tools">
+            {#each cat.tools as tool}
+              {#if tool.live}
+                <a class="tool-card" href="#{tool.route}">
+                  <span class="tool-name">{tool.name}</span>
+                  <span class="tool-desc">{tool.desc}</span>
+                  <span class="badge live">✓ 可用</span>
+                </a>
+              {:else}
+                <div class="tool-card soon">
+                  <span class="tool-name">{tool.name}</span>
+                  <span class="tool-desc">{tool.desc}</span>
+                  <span class="badge soon-badge">開發中</span>
+                </div>
+              {/if}
+            {/each}
+          </div>
+        </section>
+      {/each}
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -125,12 +153,16 @@
   .hero {
     text-align: center;
     padding: 8px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
   }
 
   .hero h2 {
     font-size: 22px;
     font-weight: 700;
-    margin: 0 0 6px;
+    margin: 0;
     letter-spacing: -0.02em;
   }
 
@@ -138,6 +170,62 @@
     color: var(--text-muted);
     margin: 0;
     font-size: 14px;
+  }
+
+  .search-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    font-size: 14px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 9px 36px 9px 36px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-elevated);
+    color: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s;
+    box-sizing: border-box;
+  }
+
+  .search-input:focus {
+    border-color: var(--accent);
+  }
+
+  .search-clear {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    line-height: 1;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+
+  .search-clear:hover { color: var(--text); }
+
+  .no-results {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 15px;
+    padding: 40px 0;
+    margin: 0;
   }
 
   .categories {

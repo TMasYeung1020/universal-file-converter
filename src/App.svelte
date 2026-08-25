@@ -1,31 +1,8 @@
 <script lang="ts">
-  // Root component. Owns the hash-based router state and renders the
-  // correct page based on the current hash.
-
   import NavBar from './lib/components/NavBar.svelte';
   import ThemeToggle from './lib/components/ThemeToggle.svelte';
-  import HomePage from './pages/HomePage.svelte';
-  import ConverterPage from './pages/ConverterPage.svelte';
-  import JsonPage from './pages/tools/JsonPage.svelte';
-  import Base64Page from './pages/tools/Base64Page.svelte';
-  import CronPage from './pages/tools/CronPage.svelte';
-  import RegExPage from './pages/tools/RegExPage.svelte';
-  import PdfToolsPage from './pages/tools/PdfToolsPage.svelte';
-  import WordCountPage from './pages/tools/WordCountPage.svelte';
-  import DiffPage from './pages/tools/DiffPage.svelte';
-  import ConvertTextPage from './pages/tools/ConvertTextPage.svelte';
-  import CompoundPage from './pages/tools/CompoundPage.svelte';
-  import MortgagePage from './pages/tools/MortgagePage.svelte';
-  import TdeePage from './pages/tools/TdeePage.svelte';
-  import UnitsPage from './pages/tools/UnitsPage.svelte';
-  import ImageCompressPage from './pages/tools/ImageCompressPage.svelte';
-  import WatermarkPage from './pages/tools/WatermarkPage.svelte';
-  import RemoveBgPage from './pages/tools/RemoveBgPage.svelte';
-  import AvifPage from './pages/tools/AvifPage.svelte';
-  import VideoStitchPage from './pages/tools/VideoStitchPage.svelte';
 
   function hashToRoute(hash: string): string {
-    // Strip the leading '#' so we get '/convert', '/', etc.
     const r = hash.startsWith('#') ? hash.slice(1) : hash;
     return r || '/';
   }
@@ -38,6 +15,52 @@
     };
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
+  });
+
+  // Lazy-loaded component registry — each entry is a separate chunk at build time
+  type SvelteComp = new (...args: any[]) => any;
+  const loaders: Record<string, () => Promise<{ default: SvelteComp }>> = {
+    '/':                    () => import('./pages/HomePage.svelte'),
+    '/convert':             () => import('./pages/ConverterPage.svelte'),
+    '/tools/json':          () => import('./pages/tools/JsonPage.svelte'),
+    '/tools/base64':        () => import('./pages/tools/Base64Page.svelte'),
+    '/tools/cron':          () => import('./pages/tools/CronPage.svelte'),
+    '/tools/regex':         () => import('./pages/tools/RegExPage.svelte'),
+    '/tools/pdf':           () => import('./pages/tools/PdfToolsPage.svelte'),
+    '/tools/wordcount':     () => import('./pages/tools/WordCountPage.svelte'),
+    '/tools/diff':          () => import('./pages/tools/DiffPage.svelte'),
+    '/tools/convert-text':  () => import('./pages/tools/ConvertTextPage.svelte'),
+    '/tools/compound':      () => import('./pages/tools/CompoundPage.svelte'),
+    '/tools/mortgage':      () => import('./pages/tools/MortgagePage.svelte'),
+    '/tools/tdee':          () => import('./pages/tools/TdeePage.svelte'),
+    '/tools/units':         () => import('./pages/tools/UnitsPage.svelte'),
+    '/tools/image-compress':() => import('./pages/tools/ImageCompressPage.svelte'),
+    '/tools/watermark':     () => import('./pages/tools/WatermarkPage.svelte'),
+    '/tools/remove-bg':     () => import('./pages/tools/RemoveBgPage.svelte'),
+    '/tools/avif':          () => import('./pages/tools/AvifPage.svelte'),
+    '/tools/video-stitch':  () => import('./pages/tools/VideoStitchPage.svelte'),
+  };
+
+  // Cache resolved components so re-navigation doesn't flicker
+  const moduleCache = new Map<string, SvelteComp | null>();
+
+  function loadForRoute(r: string): Promise<SvelteComp | null> {
+    if (moduleCache.has(r)) return Promise.resolve(moduleCache.get(r)!);
+    const loader = loaders[r];
+    if (!loader) {
+      moduleCache.set(r, null);
+      return Promise.resolve(null);
+    }
+    return loader().then(m => {
+      moduleCache.set(r, m.default);
+      return m.default;
+    });
+  }
+
+  let componentPromise = $state<Promise<SvelteComp | null>>(loadForRoute(route));
+
+  $effect(() => {
+    componentPromise = loadForRoute(route);
   });
 </script>
 
@@ -59,51 +82,27 @@
   </header>
 
   <main class="main">
-    {#if route === '/' || route === ''}
-      <HomePage />
-    {:else if route === '/convert'}
-      <ConverterPage />
-    {:else if route === '/tools/json'}
-      <JsonPage />
-    {:else if route === '/tools/base64'}
-      <Base64Page />
-    {:else if route === '/tools/cron'}
-      <CronPage />
-    {:else if route === '/tools/regex'}
-      <RegExPage />
-    {:else if route === '/tools/pdf'}
-      <PdfToolsPage />
-    {:else if route === '/tools/wordcount'}
-      <WordCountPage />
-    {:else if route === '/tools/diff'}
-      <DiffPage />
-    {:else if route === '/tools/convert-text'}
-      <ConvertTextPage />
-    {:else if route === '/tools/compound'}
-      <CompoundPage />
-    {:else if route === '/tools/mortgage'}
-      <MortgagePage />
-    {:else if route === '/tools/tdee'}
-      <TdeePage />
-    {:else if route === '/tools/units'}
-      <UnitsPage />
-    {:else if route === '/tools/image-compress'}
-      <ImageCompressPage />
-    {:else if route === '/tools/watermark'}
-      <WatermarkPage />
-    {:else if route === '/tools/remove-bg'}
-      <RemoveBgPage />
-    {:else if route === '/tools/avif'}
-      <AvifPage />
-    {:else if route === '/tools/video-stitch'}
-      <VideoStitchPage />
-    {:else}
-      <div class="not-found">
-        <div class="icon">🚧</div>
-        <h2>開發中</h2>
-        <p>這個工具還在做 — 回<a href="#/">首頁</a>看看已有工具。</p>
+    {#await componentPromise}
+      <div class="loading-page">
+        <span class="spinner-lg"></span>
       </div>
-    {/if}
+    {:then Component}
+      {#if Component}
+        <svelte:component this={Component} />
+      {:else}
+        <div class="not-found">
+          <div class="icon">🚧</div>
+          <h2>開發中</h2>
+          <p>這個工具還在做 — 回<a href="#/">首頁</a>看看已有工具。</p>
+        </div>
+      {/if}
+    {:catch}
+      <div class="not-found">
+        <div class="icon">⚠️</div>
+        <h2>載入失敗</h2>
+        <p>請重新整理頁面，或回<a href="#/">首頁</a>。</p>
+      </div>
+    {/await}
   </main>
 
   <footer class="foot">
@@ -154,6 +153,24 @@
     flex: 1;
     padding: 20px 0;
   }
+
+  .loading-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 240px;
+  }
+
+  .spinner-lg {
+    width: 28px;
+    height: 28px;
+    border: 3px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
 
   .not-found {
     text-align: center;
