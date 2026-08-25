@@ -42,7 +42,7 @@
     <div class="topbar-right">
       <a
         class="gh"
-        href="https://github.com/"
+        href="https://github.com/TMasYeung1020/universal-file-converter"
         target="_blank"
         rel="noreferrer"
         title="View source on GitHub"
