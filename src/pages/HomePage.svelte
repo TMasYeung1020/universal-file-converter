@@ -30,11 +30,11 @@
       label: '开发者 & IT 工具',
       color: '217',
       tools: [
-        { name: 'JSON 格式化', desc: '高亮 · 格式化 · 压缩 · 转 CSV/YAML', route: '/tools/json', live: false },
-        { name: 'Base64 / URL 编解码', desc: '文字或文件 ↔ Base64', route: '/tools/base64', live: false },
-        { name: 'Cron 表达式解析器', desc: '可视化配置定时任务', route: '/tools/cron', live: false },
-        { name: 'RegEx 测试器', desc: '实时匹配高亮', route: '/tools/regex', live: false },
-        { name: 'PDF 合并 / 拆分 / 旋转', desc: '用 pdf-lib 在前端完成', route: '/tools/pdf', live: false },
+        { name: 'JSON 格式化', desc: '高亮 · 格式化 · 压缩 · 转 CSV/YAML', route: '/tools/json', live: true },
+        { name: 'Base64 / URL 编解码', desc: '文字或文件 ↔ Base64', route: '/tools/base64', live: true },
+        { name: 'Cron 表达式解析器', desc: '可视化配置定时任务', route: '/tools/cron', live: true },
+        { name: 'RegEx 测试器', desc: '实时匹配高亮', route: '/tools/regex', live: true },
+        { name: 'PDF 合并 / 拆分 / 旋转', desc: '用 pdf-lib 在前端完成', route: '/tools/pdf', live: true },
       ],
     },
     {

@@ -6,6 +6,11 @@
   import ThemeToggle from './lib/components/ThemeToggle.svelte';
   import HomePage from './pages/HomePage.svelte';
   import ConverterPage from './pages/ConverterPage.svelte';
+  import JsonPage from './pages/tools/JsonPage.svelte';
+  import Base64Page from './pages/tools/Base64Page.svelte';
+  import CronPage from './pages/tools/CronPage.svelte';
+  import RegExPage from './pages/tools/RegExPage.svelte';
+  import PdfToolsPage from './pages/tools/PdfToolsPage.svelte';
 
   function hashToRoute(hash: string): string {
     // Strip the leading '#' so we get '/convert', '/', etc.
@@ -46,8 +51,17 @@
       <HomePage />
     {:else if route === '/convert'}
       <ConverterPage />
+    {:else if route === '/tools/json'}
+      <JsonPage />
+    {:else if route === '/tools/base64'}
+      <Base64Page />
+    {:else if route === '/tools/cron'}
+      <CronPage />
+    {:else if route === '/tools/regex'}
+      <RegExPage />
+    {:else if route === '/tools/pdf'}
+      <PdfToolsPage />
     {:else}
-      <!-- Placeholder for upcoming tool routes -->
       <div class="not-found">
         <div class="icon">🚧</div>
         <h2>开发中</h2>
