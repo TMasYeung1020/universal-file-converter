@@ -1,44 +1,32 @@
 <script lang="ts">
-  // Top-level page: header + drop zone + file list. Each file is its own
-  // FileCard so multiple conversions can run side by side.
+  // Root component. Owns the hash-based router state and renders the
+  // correct page based on the current hash.
 
-  import DropZone from './lib/components/DropZone.svelte';
-  import FileCard from './lib/components/FileCard.svelte';
+  import NavBar from './lib/components/NavBar.svelte';
   import ThemeToggle from './lib/components/ThemeToggle.svelte';
-  import { ingestFile } from './lib/detect';
-  import type { DetectedFile } from './lib/types';
+  import HomePage from './pages/HomePage.svelte';
+  import ConverterPage from './pages/ConverterPage.svelte';
 
-  let files = $state<DetectedFile[]>([]);
-  let unreadable = $state<string[]>([]);
-
-  async function addFiles(picked: File[]) {
-    const accepted: DetectedFile[] = [];
-    const rejected: string[] = [];
-    for (const f of picked) {
-      const detected = await ingestFile(f);
-      if (detected) accepted.push(detected);
-      else rejected.push(f.name);
-    }
-    files = [...files, ...accepted];
-    unreadable = [...unreadable, ...rejected];
+  function hashToRoute(hash: string): string {
+    // Strip the leading '#' so we get '/convert', '/', etc.
+    const r = hash.startsWith('#') ? hash.slice(1) : hash;
+    return r || '/';
   }
 
-  function remove(idx: number) {
-    files = files.filter((_, i) => i !== idx);
-  }
+  let route = $state(hashToRoute(window.location.hash));
 
-  function clearAll() {
-    files = [];
-    unreadable = [];
-  }
+  $effect(() => {
+    const onHashChange = () => {
+      route = hashToRoute(window.location.hash);
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  });
 </script>
 
-<div class="page">
+<div class="shell">
   <header class="topbar">
-    <div class="brand">
-      <span class="logo">🌐</span>
-      <h1>Universal File Converter</h1>
-    </div>
+    <NavBar {route} />
     <div class="topbar-right">
       <a
         class="gh"
@@ -54,79 +42,41 @@
   </header>
 
   <main class="main">
-    <section class="hero">
-      <h2>把任何文件转成别的格式</h2>
-      <p class="lede">
-        全部在你浏览器里跑，文件不会上传到任何服务器。文档、图片、数据格式全覆盖。
-      </p>
-    </section>
-
-    <DropZone onfiles={addFiles} />
-
-    {#if unreadable.length > 0}
-      <div class="warn">
-        ⚠️ 不认识这几个格式: {unreadable.join(', ')}
-        <button class="link" onclick={() => (unreadable = [])}>忽略</button>
-      </div>
-    {/if}
-
-    {#if files.length > 0}
-      <div class="files-head">
-        <h3>{files.length} 个文件已就绪</h3>
-        <button type="button" class="ghost" onclick={clearAll}>清空全部</button>
-      </div>
-      <div class="files">
-        {#each files as f, i (i)}
-          <FileCard file={f} onremove={() => remove(i)} />
-        {/each}
-      </div>
+    {#if route === '/' || route === ''}
+      <HomePage />
+    {:else if route === '/convert'}
+      <ConverterPage />
     {:else}
-      <div class="empty">
-        <p>
-          支持 <strong>19 种格式</strong> · 文档 (MD/HTML/DOCX/PDF/TXT) · 图片 (PNG/JPG/WebP/SVG) · 数据 (JSON/CSV/YAML/TOML/XML)
-          · 表格 (XLSX) · 演示 (PPTX) · 音频 (WAV/MP3)
-        </p>
+      <!-- Placeholder for upcoming tool routes -->
+      <div class="not-found">
+        <div class="icon">🚧</div>
+        <h2>开发中</h2>
+        <p>这个工具还在做 — 回<a href="#/">首页</a>看看已有工具。</p>
       </div>
     {/if}
   </main>
 
   <footer class="foot">
-    <span>纯前端 · 无服务器 · 100% 客户端转换</span>
+    <span>Universal Tools · 纯前端 · 无服务器 · 100% 客户端</span>
   </footer>
 </div>
 
 <style>
-  .page {
-    max-width: 880px;
+  .shell {
+    max-width: 900px;
     margin: 0 auto;
-    padding: 24px 20px 64px;
+    padding: 0 20px 64px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 0;
+    min-height: 100vh;
   }
 
   .topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 4px;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .logo {
-    font-size: 26px;
-  }
-
-  .brand h1 {
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0;
-    letter-spacing: -0.01em;
+    padding: 10px 0;
   }
 
   .topbar-right {
@@ -138,106 +88,49 @@
   .gh {
     color: var(--text-muted);
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13px;
     border: 1px solid var(--border);
     padding: 5px 12px;
     border-radius: var(--radius-sm);
-    transition: color 0.15s ease, border-color 0.15s ease;
+    transition: color 0.12s ease, border-color 0.12s ease;
   }
+
   .gh:hover {
     color: var(--text);
     border-color: var(--accent);
   }
 
-  .hero {
+  .main {
+    flex: 1;
+    padding: 20px 0;
+  }
+
+  .not-found {
     text-align: center;
-    padding: 16px 0 4px;
+    padding: 60px 0;
   }
 
-  .hero h2 {
-    margin: 0 0 6px;
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+  .not-found .icon {
+    font-size: 48px;
+    margin-bottom: 12px;
   }
 
-  .lede {
+  .not-found h2 {
+    margin: 0 0 8px;
+    font-size: 22px;
+  }
+
+  .not-found p {
     color: var(--text-muted);
-    margin: 0;
     font-size: 15px;
-  }
-
-  .empty {
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 13px;
-    padding: 12px 0;
-  }
-
-  .warn {
-    background: color-mix(in srgb, #f59e0b 12%, transparent);
-    color: #b45309;
-    padding: 10px 14px;
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  :global(.dark) .warn {
-    color: #fcd34d;
-  }
-
-  .link {
-    background: transparent;
-    border: 0;
-    color: inherit;
-    text-decoration: underline;
-    font-size: 13px;
-  }
-
-  .files-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 4px;
-  }
-
-  .files-head h3 {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .ghost {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    padding: 4px 10px;
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-  }
-  .ghost:hover {
-    color: var(--text);
-    border-color: var(--border-strong);
-  }
-
-  .files {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
   }
 
   .foot {
     text-align: center;
     color: var(--text-muted);
     font-size: 12px;
-    padding-top: 16px;
+    padding: 16px 0;
     border-top: 1px solid var(--border);
+    margin-top: auto;
   }
 </style>
