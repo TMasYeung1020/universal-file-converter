@@ -92,14 +92,14 @@
   function prefixChar(type: DiffType): string {
     if (type === 'added') return '+';
     if (type === 'removed') return '-';
-    return ' '; // non-breaking space so the column never collapses
+    return ' '; // non-breaking space so the column never collapses
   }
 </script>
 
 <div class="page-body">
   <div class="intro">
-    <h2>文字 Diff 比对</h2>
-    <p class="lede">对比两段文本，逐行高亮显示新增、删除与未变更内容。</p>
+    <h2>文字 Diff 對比</h2>
+    <p class="lede">對比兩段文字，逐行高亮顯示新增、刪除與未變更內容。</p>
   </div>
 
   <div class="editor-card">
@@ -110,7 +110,7 @@
           id="left-input"
           class="code-area"
           bind:value={leftText}
-          placeholder="在此粘贴或输入原始文本…"
+          placeholder="在此貼上或輸入原始文字…"
           spellcheck="false"
           autocomplete="off"
         ></textarea>
@@ -124,7 +124,7 @@
           id="right-input"
           class="code-area"
           bind:value={rightText}
-          placeholder="在此粘贴或输入新版文本…"
+          placeholder="在此貼上或輸入新版文字…"
           spellcheck="false"
           autocomplete="off"
         ></textarea>
@@ -132,7 +132,7 @@
     </div>
 
     <div class="toolbar">
-      <button class="btn btn-primary" onclick={runDiff}>对比</button>
+      <button class="btn btn-primary" onclick={runDiff}>對比</button>
       <button class="btn btn-ghost" onclick={clearAll}>清空</button>
     </div>
   </div>
@@ -141,20 +141,20 @@
     <div class="result-card">
       <div class="stats-bar" role="status" aria-live="polite">
         <span class="badge badge-added">+ {addedCount} 行新增</span>
-        <span class="badge badge-removed">- {removedCount} 行删除</span>
-        <span class="badge badge-equal">= {equalCount} 行不变</span>
+        <span class="badge badge-removed">- {removedCount} 行刪除</span>
+        <span class="badge badge-equal">= {equalCount} 行不變</span>
       </div>
 
       {#if diffResult.length === 0}
-        <p class="empty-note">两段文本完全一致。</p>
+        <p class="empty-note">兩段文字完全一致。</p>
       {:else}
-        <div class="diff-table" role="table" aria-label="Diff 结果">
+        <div class="diff-table" role="table" aria-label="Diff 結果">
           {#each diffResult as line}
             <div class="diff-row diff-row--{line.type}" role="row">
-              <span class="cell ln-left" role="cell" aria-label="原文行号">
+              <span class="cell ln-left" role="cell" aria-label="原文行號">
                 {line.lineNumLeft ?? ''}
               </span>
-              <span class="cell ln-right" role="cell" aria-label="新文行号">
+              <span class="cell ln-right" role="cell" aria-label="新文行號">
                 {line.lineNumRight ?? ''}
               </span>
               <span class="cell pfx" role="cell" aria-hidden="true">

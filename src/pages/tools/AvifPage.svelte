@@ -57,7 +57,7 @@
       const url = URL.createObjectURL(file);
       const img = new Image();
       img.onload = () => { resolve(img); URL.revokeObjectURL(url); };
-      img.onerror = () => { reject(new Error('图片加载失败')); URL.revokeObjectURL(url); };
+      img.onerror = () => { reject(new Error('圖片載入失敗')); URL.revokeObjectURL(url); };
       img.src = url;
     });
   }
@@ -81,7 +81,7 @@
     return new Promise((resolve, reject) => {
       canvas.toBlob(blob => {
         if (blob) resolve(blob);
-        else reject(new Error('转换失败，浏览器可能不支持该格式'));
+        else reject(new Error('轉換失敗，瀏覽器可能不支援該格式'));
       }, mimeType, qual / 100);
     });
   }
@@ -186,13 +186,13 @@
 
 <div class="page-body">
   <div class="intro">
-    <h2>图片格式转换</h2>
-    <p class="lede">PNG · JPG · WebP · AVIF 互转 · Canvas 纯浏览器处理，文件不上传任何服务器</p>
+    <h2>圖片格式轉換</h2>
+    <p class="lede">PNG · JPG · WebP · AVIF 互轉 · Canvas 純瀏覽器處理，檔案不上傳任何伺服器</p>
   </div>
 
   {#if targetFormat === 'avif' && avifSupported === false}
     <div class="avif-warning">
-      当前浏览器不支持 AVIF 编码（需要 Chrome 94+ 或 Firefox 113+），转换可能失败。
+      目前瀏覽器不支援 AVIF 編碼（需要 Chrome 94+ 或 Firefox 113+），轉換可能失敗。
     </div>
   {/if}
 
@@ -200,7 +200,7 @@
   <div class="settings-card">
     <div class="settings-row">
       <div class="setting-group">
-        <span class="setting-label">目标格式</span>
+        <span class="setting-label">目標格式</span>
         <div class="format-pills">
           {#each (['webp', 'avif', 'png', 'jpeg'] as ImageFormat[]) as fmt}
             <button
@@ -210,7 +210,7 @@
             >
               {fmt.toUpperCase()}
               {#if fmt === 'avif' && avifSupported === false}
-                <span class="warn-dot" title="浏览器不支持"></span>
+                <span class="warn-dot" title="瀏覽器不支援"></span>
               {/if}
             </button>
           {/each}
@@ -219,8 +219,8 @@
 
       <div class="setting-group">
         <label class="setting-label" for="quality-slider">
-          质量
-          <span class="quality-val">{targetFormat === 'png' ? '无损' : quality}</span>
+          品質
+          <span class="quality-val">{targetFormat === 'png' ? '無損' : quality}</span>
         </label>
         <input
           id="quality-slider"
@@ -234,7 +234,7 @@
 
       <div class="setting-group">
         <label class="setting-label" for="max-dim">
-          最大边长 <span class="quality-val">{maxDim > 0 ? `${maxDim}px` : '不限'}</span>
+          最大邊長 <span class="quality-val">{maxDim > 0 ? `${maxDim}px` : '不限'}</span>
         </label>
         <input
           id="max-dim"
@@ -258,9 +258,9 @@
     ondrop={handleDrop}
   >
     <span class="drop-icon">🖼️</span>
-    <span class="drop-label">拖拽图片到此处，或</span>
+    <span class="drop-label">拖放圖片到此處，或</span>
     <label class="file-btn">
-      点击选择图片（最多 20 张）
+      點擊選擇圖片（最多 20 張）
       <input
         type="file"
         accept="image/png,image/jpeg,image/webp,image/avif,image/gif"
@@ -268,13 +268,13 @@
         onchange={handleInput}
       />
     </label>
-    <span class="drop-hint">支持 PNG · JPG · WebP · AVIF · GIF</span>
+    <span class="drop-hint">支援 PNG · JPG · WebP · AVIF · GIF</span>
   </div>
 
   <!-- File list -->
   {#if items.length > 0}
     <div class="list-head">
-      <span class="list-meta">{items.length} 张图片{doneCount > 0 ? `，已转换 ${doneCount} 张` : ''}</span>
+      <span class="list-meta">{items.length} 張圖片{doneCount > 0 ? `，已轉換 ${doneCount} 張` : ''}</span>
       <button class="ghost" onclick={clearAll}>清空全部</button>
     </div>
 
@@ -310,11 +310,11 @@
                 {item.errorMsg.length > 40 ? item.errorMsg.slice(0, 40) + '…' : item.errorMsg}
               </div>
             {:else if item.status === 'converting'}
-              <div class="card-converting">转换中…</div>
+              <div class="card-converting">轉換中…</div>
             {/if}
           </div>
 
-          <button class="rm-btn" aria-label="删除" onclick={() => removeItem(item.id)}>×</button>
+          <button class="rm-btn" aria-label="刪除" onclick={() => removeItem(item.id)}>×</button>
         </div>
       {/each}
     </div>
@@ -327,9 +327,9 @@
         onclick={convertAll}
       >
         {#if anyConverting}
-          <span class="spinner spinner--btn"></span> 转换中…
+          <span class="spinner spinner--btn"></span> 轉換中…
         {:else}
-          转换全部
+          轉換全部
         {/if}
       </button>
 
@@ -341,7 +341,7 @@
         {#if isPackaging}
           <span class="spinner spinner--btn spinner--dark"></span> 打包中…
         {:else}
-          打包下载 {doneCount > 0 ? `(${doneCount})` : ''}
+          打包下載 {doneCount > 0 ? `(${doneCount})` : ''}
         {/if}
       </button>
     </div>

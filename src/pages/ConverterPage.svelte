@@ -34,9 +34,9 @@
 
 <div class="page-body">
   <div class="intro">
-    <h2>万能文件格式转换</h2>
+    <h2>萬能檔案格式轉換</h2>
     <p class="lede">
-      纯浏览器端处理 · 19 种格式 · 文件不上传任何服务器
+      純瀏覽器端處理 · 19 種格式 · 檔案不上傳任何伺服器
     </p>
   </div>
 
@@ -44,14 +44,14 @@
 
   {#if unreadable.length > 0}
     <div class="warn">
-      ⚠️ 不认识这几个格式: {unreadable.join(', ')}
+      ⚠️ 不認識這幾個格式: {unreadable.join(', ')}
       <button class="link" onclick={() => (unreadable = [])}>忽略</button>
     </div>
   {/if}
 
   {#if files.length > 0}
     <div class="files-head">
-      <h3>{files.length} 个文件已就绪</h3>
+      <h3>{files.length} 個檔案已就緒</h3>
       <button type="button" class="ghost" onclick={clearAll}>清空全部</button>
     </div>
     <div class="files">
@@ -62,8 +62,8 @@
   {:else}
     <div class="empty">
       <p>
-        支持 <strong>19 种格式</strong> · 文档 (MD/HTML/DOCX/PDF/TXT) · 图片 (PNG/JPG/WebP/SVG) · 数据 (JSON/CSV/YAML/TOML/XML)
-        · 表格 (XLSX) · 演示 (PPTX) · 音频 (WAV/MP3)
+        支援 <strong>19 種格式</strong> · 文件 (MD/HTML/DOCX/PDF/TXT) · 圖片 (PNG/JPG/WebP/SVG) · 資料 (JSON/CSV/YAML/TOML/XML)
+        · 表格 (XLSX) · 簡報 (PPTX) · 音訊 (WAV/MP3)
       </p>
     </div>
   {/if}

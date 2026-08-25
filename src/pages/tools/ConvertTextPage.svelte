@@ -150,20 +150,20 @@
   }
 
   const modeLabels: { value: Mode; label: string; sublabel: string }[] = [
-    { value: 'sim2trad', label: '简 → 繁', sublabel: '简体转繁体' },
-    { value: 'trad2sim', label: '繁 → 简', sublabel: '繁体转简体' },
-    { value: 'fullhalf', label: '全 ⇄ 半', sublabel: '全半角转换' },
+    { value: 'sim2trad', label: '簡 → 繁', sublabel: '簡體轉繁體' },
+    { value: 'trad2sim', label: '繁 → 簡', sublabel: '繁體轉簡體' },
+    { value: 'fullhalf', label: '全 ⇄ 半', sublabel: '全半形轉換' },
   ];
 </script>
 
 <div class="page-body">
   <div class="intro">
-    <h2>繁简 / 全半形转换</h2>
-    <p class="lede">简体 ⇄ 繁体中文，全角 ⇄ 半角 ASCII，即时转换，无需联网。</p>
+    <h2>繁簡 / 全半形轉換</h2>
+    <p class="lede">簡體 ⇄ 繁體中文，全形 ⇄ 半形 ASCII，即時轉換，無需聯網。</p>
   </div>
 
   <!-- Mode tabs -->
-  <div class="mode-tabs" role="tablist" aria-label="转换模式">
+  <div class="mode-tabs" role="tablist" aria-label="轉換模式">
     {#each modeLabels as { value, label, sublabel }}
       <button
         role="tab"
@@ -185,12 +185,12 @@
         class="dir-btn"
         class:active={fullHalfDir === 'full2half'}
         onclick={() => { fullHalfDir = 'full2half'; }}
-      >全角 → 半角</button>
+      >全形 → 半形</button>
       <button
         class="dir-btn"
         class:active={fullHalfDir === 'half2full'}
         onclick={() => { fullHalfDir = 'half2full'; }}
-      >半角 → 全角</button>
+      >半形 → 全形</button>
     </div>
   {/if}
 
@@ -198,55 +198,55 @@
   <div class="panels">
     <div class="panel">
       <div class="panel-header">
-        <span class="panel-title">输入</span>
-        <button class="clear-btn" onclick={() => { inputText = ''; }} aria-label="清除输入">✕ 清除</button>
+        <span class="panel-title">輸入</span>
+        <button class="clear-btn" onclick={() => { inputText = ''; }} aria-label="清除輸入">✕ 清除</button>
       </div>
       <textarea
         class="text-area"
         bind:value={inputText}
         placeholder={mode === 'fullhalf'
-          ? (fullHalfDir === 'full2half' ? '在此输入全角文字…' : '在此输入半角文字…')
-          : (mode === 'sim2trad' ? '在此输入简体中文…' : '在此输入繁体中文…')}
+          ? (fullHalfDir === 'full2half' ? '在此輸入全形文字…' : '在此輸入半形文字…')
+          : (mode === 'sim2trad' ? '在此輸入簡體中文…' : '在此輸入繁體中文…')}
         spellcheck={false}
         autocomplete="off"
       ></textarea>
-      <div class="char-count">{[...inputText].length} 字符</div>
+      <div class="char-count">{[...inputText].length} 字元</div>
     </div>
 
     <!-- Middle actions -->
     <div class="mid-actions">
-      <button class="action-btn swap-btn" onclick={swapTexts} title="将输出内容移到输入框" aria-label="交换">
+      <button class="action-btn swap-btn" onclick={swapTexts} title="將輸出內容移到輸入框" aria-label="互換">
         <span aria-hidden="true">⇄</span>
       </button>
     </div>
 
     <div class="panel">
       <div class="panel-header">
-        <span class="panel-title">输出</span>
+        <span class="panel-title">輸出</span>
         <button
           class="copy-btn"
           class:success={copied}
           onclick={copyOutput}
           disabled={!outputText}
-          aria-label="复制输出"
+          aria-label="複製輸出"
         >
-          {#if copied}✓ 已复制{:else}⎘ 复制{/if}
+          {#if copied}✓ 已複製{:else}⎘ 複製{/if}
         </button>
       </div>
       <textarea
         class="text-area output-area"
         readonly
         value={outputText}
-        placeholder="转换结果将显示在此处…"
+        placeholder="轉換結果將顯示在此處…"
         spellcheck={false}
       ></textarea>
-      <div class="char-count">{[...outputText].length} 字符</div>
+      <div class="char-count">{[...outputText].length} 字元</div>
     </div>
   </div>
 
   <!-- Info note -->
   <p class="note">
-    字符级逐字替换，覆盖 300+ 常用字。繁简转换基于常用对照表，不含语义消歧。全半角转换处理 U+FF01–U+FF5E 及全角空格。
+    字元級逐字替換，覆蓋 300+ 常用字。繁簡轉換基於常用對照表，不含語義消歧。全半形轉換處理 U+FF01–U+FF5E 及全形空格。
   </p>
 </div>
 

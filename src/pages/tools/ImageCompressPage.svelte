@@ -271,8 +271,8 @@
 
 <div class="page-body">
   <div class="intro">
-    <h2>图片压缩 &amp; 裁切</h2>
-    <p class="lede">在浏览器中压缩或裁切图片，不上传服务器，保护隐私。支持 PNG / JPG / WebP / GIF。</p>
+    <h2>圖片壓縮 &amp; 裁切</h2>
+    <p class="lede">在瀏覽器中壓縮或裁切圖片，不上傳伺服器，保護隱私。支援 PNG / JPG / WebP / GIF。</p>
   </div>
 
   <!-- Drop Zone -->
@@ -289,8 +289,8 @@
       onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') onDropZoneClick(); }}
     >
       <div class="drop-icon">🖼️</div>
-      <p class="drop-hint">点击或拖拽图片到此处</p>
-      <p class="drop-hint-sub">支持 PNG · JPG · WebP · GIF</p>
+      <p class="drop-hint">點擊或拖放圖片到此處</p>
+      <p class="drop-hint-sub">支援 PNG · JPG · WebP · GIF</p>
     </div>
   {:else}
     <!-- Main workspace -->
@@ -313,7 +313,7 @@
             compressedDataUrl = '';
             croppedDataUrl = '';
           }}
-        >重新选择</button>
+        >重新選擇</button>
       </div>
 
       <!-- Tabs -->
@@ -322,7 +322,7 @@
           class="tab-btn"
           class:active={activeTab === 'compress'}
           onclick={() => { activeTab = 'compress'; }}
-        >压缩</button>
+        >壓縮</button>
         <button
           class="tab-btn"
           class:active={activeTab === 'crop'}
@@ -335,16 +335,16 @@
         <div class="tab-content">
           <div class="controls-row">
             <div class="control-group">
-              <label for="format-select">输出格式</label>
+              <label for="format-select">輸出格式</label>
               <select id="format-select" value={outputFormat} onchange={onFormatChange}>
                 <option value="jpeg">JPEG</option>
                 <option value="webp">WebP</option>
-                <option value="png">PNG (无损)</option>
+                <option value="png">PNG (無損)</option>
               </select>
             </div>
             {#if outputFormat !== 'png'}
               <div class="control-group quality-group">
-                <label for="quality-range">质量 <span class="quality-val">{quality}</span></label>
+                <label for="quality-range">品質 <span class="quality-val">{quality}</span></label>
                 <input
                   id="quality-range"
                   type="range"
@@ -356,20 +356,20 @@
                 />
               </div>
             {/if}
-            <button class="btn-primary" onclick={runCompress}>重新压缩</button>
+            <button class="btn-primary" onclick={runCompress}>重新壓縮</button>
           </div>
 
           <div class="preview-row">
             <div class="preview-card">
-              <div class="preview-label">原图</div>
-              <img src={originalDataUrl} alt="原图预览" class="preview-img" />
+              <div class="preview-label">原圖</div>
+              <img src={originalDataUrl} alt="原圖預覽" class="preview-img" />
               <div class="preview-meta">{formatBytes(originalSize)}</div>
             </div>
             <div class="arrow">→</div>
             <div class="preview-card">
-              <div class="preview-label">压缩后</div>
+              <div class="preview-label">壓縮後</div>
               {#if compressedDataUrl}
-                <img src={compressedDataUrl} alt="压缩后预览" class="preview-img" />
+                <img src={compressedDataUrl} alt="壓縮後預覽" class="preview-img" />
                 <div class="preview-meta">
                   {formatBytes(compressedSize)}
                   {#if compressionRatio > 0}
@@ -378,9 +378,9 @@
                     <span class="badge-warn">+{Math.abs(compressionRatio)}%</span>
                   {/if}
                 </div>
-                <button class="btn-primary btn-dl" onclick={downloadCompressed}>下载</button>
+                <button class="btn-primary btn-dl" onclick={downloadCompressed}>下載</button>
               {:else}
-                <div class="placeholder">处理中…</div>
+                <div class="placeholder">處理中…</div>
               {/if}
             </div>
           </div>
@@ -400,7 +400,7 @@
               <input id="crop-y" type="number" min="0" max={originalHeight - 1} value={cropY} oninput={onCropYInput} class="num-input" />
             </div>
             <div class="control-group">
-              <label for="crop-w">宽度 (px)</label>
+              <label for="crop-w">寬度 (px)</label>
               <input id="crop-w" type="number" min="1" max={originalWidth} value={cropWidth} oninput={onCropWidthInput} class="num-input" />
             </div>
             <div class="control-group">
@@ -408,7 +408,7 @@
               <input id="crop-h" type="number" min="1" max={originalHeight} value={cropHeight} oninput={onCropHeightInput} class="num-input" />
             </div>
             <div class="control-group">
-              <label for="aspect-select">宽高比</label>
+              <label for="aspect-select">寬高比</label>
               <select id="aspect-select" value={aspectRatio} onchange={onAspectRatioChange}>
                 <option value="free">自由</option>
                 <option value="1:1">1:1</option>
@@ -416,13 +416,13 @@
                 <option value="16:9">16:9</option>
               </select>
             </div>
-            <button class="btn-primary" onclick={runCrop}>裁切预览</button>
+            <button class="btn-primary" onclick={runCrop}>裁切預覽</button>
           </div>
 
           <!-- Image with overlay -->
           <div class="crop-workspace">
             <div class="crop-image-wrap" style="width:{displayWidth}px;height:{displayHeight}px;">
-              <img src={originalDataUrl} alt="裁切预览" style="width:{displayWidth}px;height:{displayHeight}px;" />
+              <img src={originalDataUrl} alt="裁切預覽" style="width:{displayWidth}px;height:{displayHeight}px;" />
               <div
                 class="crop-overlay"
                 style={scaledOverlayStyle}
@@ -441,10 +441,10 @@
 
             {#if croppedDataUrl}
               <div class="crop-result">
-                <div class="preview-label">裁切结果</div>
-                <img src={croppedDataUrl} alt="裁切结果" class="crop-result-img" />
+                <div class="preview-label">裁切結果</div>
+                <img src={croppedDataUrl} alt="裁切結果" class="crop-result-img" />
                 <div class="preview-meta">{cropWidth} × {cropHeight} px · {formatBytes(croppedSize)}</div>
-                <button class="btn-primary btn-dl" onclick={downloadCropped}>下载 PNG</button>
+                <button class="btn-primary btn-dl" onclick={downloadCropped}>下載 PNG</button>
               </div>
             {/if}
           </div>

@@ -26,7 +26,7 @@
   async function copyText() {
     if (!textOutput) return;
     await navigator.clipboard.writeText(textOutput);
-    textCopy = '已复制！';
+    textCopy = '已複製！';
     setTimeout(() => { textCopy = ''; }, 2000);
   }
 
@@ -72,7 +72,7 @@
   async function copyFile() {
     if (!fileBase64) return;
     await navigator.clipboard.writeText(fileBase64);
-    fileCopy = '已复制！';
+    fileCopy = '已複製！';
     setTimeout(() => { fileCopy = ''; }, 2000);
   }
 
@@ -100,29 +100,29 @@
   async function copyUrl() {
     if (!urlOutput) return;
     await navigator.clipboard.writeText(urlOutput);
-    urlCopy = '已复制！';
+    urlCopy = '已複製！';
     setTimeout(() => { urlCopy = ''; }, 2000);
   }
 </script>
 
 <div class="page-body">
   <div class="intro">
-    <h2>Base64 / URL 编解码</h2>
-    <p class="lede">文字或文件 ↔ Base64 · URL 编解码 · 纯浏览器处理，无需上传</p>
+    <h2>Base64 / URL 編解碼</h2>
+    <p class="lede">文字或檔案 ↔ Base64 · URL 編解碼 · 純瀏覽器處理，無需上傳</p>
   </div>
 
   <div class="tabs" role="tablist">
     <button role="tab" class:active={activeTab === 'text'} onclick={() => { activeTab = 'text'; }}>文字 Base64</button>
-    <button role="tab" class:active={activeTab === 'file'} onclick={() => { activeTab = 'file'; }}>文件 Base64</button>
-    <button role="tab" class:active={activeTab === 'url'} onclick={() => { activeTab = 'url'; }}>URL 编解码</button>
+    <button role="tab" class:active={activeTab === 'file'} onclick={() => { activeTab = 'file'; }}>檔案 Base64</button>
+    <button role="tab" class:active={activeTab === 'url'} onclick={() => { activeTab = 'url'; }}>URL 編解碼</button>
   </div>
 
   <!-- Text tab -->
   {#if activeTab === 'text'}
     <div class="tab-panel">
       <div class="mode-row">
-        <span class="mode-label">{textMode === 'encode' ? '编码 (Text → Base64)' : '解码 (Base64 → Text)'}</span>
-        <button class="ghost" onclick={swapTextMode}>⇄ 互换</button>
+        <span class="mode-label">{textMode === 'encode' ? '編碼 (Text → Base64)' : '解碼 (Base64 → Text)'}</span>
+        <button class="ghost" onclick={swapTextMode}>⇄ 互換</button>
       </div>
       <div class="panels">
         <div class="panel">
@@ -131,7 +131,7 @@
             id="text-in"
             class="code-area"
             bind:value={textInput}
-            placeholder={textMode === 'encode' ? '输入要编码的文字…' : '输入 Base64 字符串…'}
+            placeholder={textMode === 'encode' ? '輸入要編碼的文字…' : '輸入 Base64 字串…'}
             spellcheck="false"
           ></textarea>
         </div>
@@ -142,15 +142,15 @@
             class="code-area code-area--out"
             value={textOutput}
             readonly
-            placeholder="结果将显示在这里…"
+            placeholder="結果將顯示在這裡…"
             spellcheck="false"
           ></textarea>
         </div>
       </div>
       {#if textError}<p class="error">{textError}</p>{/if}
       <div class="actions">
-        <button class="btn-primary" onclick={runText}>{textMode === 'encode' ? '编码' : '解码'}</button>
-        <button class="ghost" onclick={copyText}>{textCopy || '复制结果'}</button>
+        <button class="btn-primary" onclick={runText}>{textMode === 'encode' ? '編碼' : '解碼'}</button>
+        <button class="ghost" onclick={copyText}>{textCopy || '複製結果'}</button>
         <button class="ghost" onclick={() => { textInput = ''; textOutput = ''; textError = ''; }}>清空</button>
       </div>
     </div>
@@ -168,22 +168,22 @@
         ondrop={handleFileDrop}
       >
         <span class="drop-icon">📎</span>
-        <span class="drop-label">拖拽任意文件到此处，或</span>
+        <span class="drop-label">拖拽任意檔案到此處，或</span>
         <label class="file-btn">
-          点击选择文件
+          點擊選擇檔案
           <input type="file" onchange={handleFileInput} />
         </label>
       </div>
       {#if fileName}
-        <p class="file-info-text">文件：<strong>{fileName}</strong></p>
+        <p class="file-info-text">檔案：<strong>{fileName}</strong></p>
       {/if}
       {#if fileBase64}
         <div class="panel">
-          <label class="panel-label" for="file-out">Base64 输出</label>
+          <label class="panel-label" for="file-out">Base64 輸出</label>
           <textarea id="file-out" class="code-area code-area--out" value={fileBase64} readonly spellcheck="false"></textarea>
         </div>
         <div class="actions">
-          <button class="ghost" onclick={copyFile}>{fileCopy || '复制 Base64'}</button>
+          <button class="ghost" onclick={copyFile}>{fileCopy || '複製 Base64'}</button>
         </div>
       {/if}
       {#if fileError}<p class="error">{fileError}</p>{/if}
@@ -194,12 +194,12 @@
   {#if activeTab === 'url'}
     <div class="tab-panel">
       <div class="mode-row">
-        <span class="mode-label">{urlMode === 'encode' ? 'URL 编码' : 'URL 解码'}</span>
-        <button class="ghost" onclick={() => { urlMode = urlMode === 'encode' ? 'decode' : 'encode'; [urlInput, urlOutput] = [urlOutput, urlInput]; urlError = ''; }}>⇄ 互换</button>
+        <span class="mode-label">{urlMode === 'encode' ? 'URL 編碼' : 'URL 解碼'}</span>
+        <button class="ghost" onclick={() => { urlMode = urlMode === 'encode' ? 'decode' : 'encode'; [urlInput, urlOutput] = [urlOutput, urlInput]; urlError = ''; }}>⇄ 互換</button>
       </div>
       <div class="panels">
         <div class="panel">
-          <label class="panel-label" for="url-in">{urlMode === 'encode' ? '原文' : '已编码'}</label>
+          <label class="panel-label" for="url-in">{urlMode === 'encode' ? '原文' : '已編碼'}</label>
           <textarea
             id="url-in"
             class="code-area"
@@ -209,14 +209,14 @@
           ></textarea>
         </div>
         <div class="panel">
-          <label class="panel-label" for="url-out">{urlMode === 'encode' ? '已编码' : '原文'}</label>
-          <textarea id="url-out" class="code-area code-area--out" value={urlOutput} readonly spellcheck="false" placeholder="结果…"></textarea>
+          <label class="panel-label" for="url-out">{urlMode === 'encode' ? '已編碼' : '原文'}</label>
+          <textarea id="url-out" class="code-area code-area--out" value={urlOutput} readonly spellcheck="false" placeholder="結果…"></textarea>
         </div>
       </div>
       {#if urlError}<p class="error">{urlError}</p>{/if}
       <div class="actions">
-        <button class="btn-primary" onclick={runUrl}>{urlMode === 'encode' ? '编码' : '解码'}</button>
-        <button class="ghost" onclick={copyUrl}>{urlCopy || '复制结果'}</button>
+        <button class="btn-primary" onclick={runUrl}>{urlMode === 'encode' ? '編碼' : '解碼'}</button>
+        <button class="ghost" onclick={copyUrl}>{urlCopy || '複製結果'}</button>
         <button class="ghost" onclick={() => { urlInput = ''; urlOutput = ''; urlError = ''; }}>清空</button>
       </div>
     </div>

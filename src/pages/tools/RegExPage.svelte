@@ -89,20 +89,20 @@
 
 <div class="page-body">
   <div class="intro">
-    <h2>正则表达式测试器</h2>
-    <p class="lede">纯浏览器端 · 实时匹配高亮 · 捕获组 · 替换功能</p>
+    <h2>正規表達式測試器</h2>
+    <p class="lede">純瀏覽器端 · 即時匹配高亮 · 捕獲組 · 替換功能</p>
   </div>
 
   <!-- Pattern -->
   <div class="card">
-    <div class="section-label">表达式</div>
+    <div class="section-label">表達式</div>
     <div class="pattern-row">
       <span class="delim">/</span>
       <input
         class="pattern-input"
         class:is-error={!!patternError}
         type="text"
-        placeholder="输入正则 pattern（不含斜杠）"
+        placeholder="輸入正規 pattern（不含斜線）"
         bind:value={pattern}
         spellcheck="false"
         autocomplete="off"
@@ -119,16 +119,16 @@
     {#if patternError}
       <p class="status-msg err-msg">⚠ {patternError}</p>
     {:else if pattern}
-      <p class="status-msg ok-msg">✓ 正则有效</p>
+      <p class="status-msg ok-msg">✓ 正規有效</p>
     {/if}
   </div>
 
   <!-- Test text + mirror -->
   <div class="card">
-    <div class="section-label">测试文本</div>
-    <textarea class="test-area" placeholder="粘贴或输入要测试的文本…" bind:value={testText} spellcheck="false"></textarea>
+    <div class="section-label">測試文字</div>
+    <textarea class="test-area" placeholder="貼上或輸入要測試的文字…" bind:value={testText} spellcheck="false"></textarea>
     <div class="section-label preview-label">
-      匹配预览
+      匹配預覽
       {#if testText && matches.length > 0}
         <span class="count-badge">{matches.length}</span>
       {/if}
@@ -137,39 +137,39 @@
       {#if testText}
         {@html highlightedHtml}
       {:else}
-        <span class="mirror-ph">在上方输入文本后，匹配项将橙色高亮显示</span>
+        <span class="mirror-ph">在上方輸入文字後，匹配項將橙色高亮顯示</span>
       {/if}
     </div>
   </div>
 
   <!-- Match results -->
   <div class="card">
-    <div class="section-label">匹配结果</div>
+    <div class="section-label">匹配結果</div>
     {#if !pattern}
-      <p class="hint">请先输入正则表达式</p>
+      <p class="hint">請先輸入正規表達式</p>
     {:else if patternError}
-      <p class="hint">正则有误，请修正后查看</p>
+      <p class="hint">正規有誤，請修正後查看</p>
     {:else if !testText}
-      <p class="hint">请在上方输入测试文本</p>
+      <p class="hint">請在上方輸入測試文字</p>
     {:else if matches.length === 0}
-      <p class="no-match">未找到匹配项</p>
+      <p class="no-match">未找到匹配項</p>
     {:else}
-      <p class="match-summary">共匹配 <strong>{matches.length}</strong> 处{#if !flagG} <span class="hint-inline">（g 标志未启用，仅首个）</span>{/if}</p>
+      <p class="match-summary">共匹配 <strong>{matches.length}</strong> 處{#if !flagG} <span class="hint-inline">（g 標誌未啟用，僅首個）</span>{/if}</p>
       <div class="match-list">
         {#each matches as m, i (i)}
           <div class="match-item">
             <div class="match-header">
               <span class="match-num">#{i + 1}</span>
               <span class="match-pos">{m.index}–{m.end}</span>
-              <span class="match-len">长度 {m.fullMatch.length}</span>
+              <span class="match-len">長度 {m.fullMatch.length}</span>
             </div>
-            <code class="match-text">{m.fullMatch !== '' ? m.fullMatch : '（零长度匹配）'}</code>
+            <code class="match-text">{m.fullMatch !== '' ? m.fullMatch : '（零長度匹配）'}</code>
             {#if m.groups.length > 0}
               <div class="groups">
                 {#each m.groups as g, gi (gi)}
                   <span class="group-pill">
                     <span class="group-label">${gi + 1}</span>
-                    <code class="group-val">{g !== undefined ? g : '未捕获'}</code>
+                    <code class="group-val">{g !== undefined ? g : '未捕獲'}</code>
                   </span>
                 {/each}
               </div>
@@ -182,16 +182,16 @@
 
   <!-- Replace -->
   <div class="card">
-    <div class="section-label">替换</div>
+    <div class="section-label">替換</div>
     <div class="replace-row">
-      <input class="replace-input" type="text" placeholder="替换字符串（$1 $2… 捕获组，$& 整个匹配）" bind:value={replacement} />
+      <input class="replace-input" type="text" placeholder="替換字串（$1 $2… 捕獲組，$& 整個匹配）" bind:value={replacement} />
       <button class="btn-primary" onclick={doReplace} disabled={!pattern || !!patternError || !testText}>Replace All</button>
     </div>
     {#if replaceResult !== null}
       <div class="result-block">
         <div class="result-header">
-          <span class="section-label" style="margin-bottom:0">替换结果</span>
-          <button class="ghost" onclick={copyResult}>{copied ? '✓ 已复制' : '复制'}</button>
+          <span class="section-label" style="margin-bottom:0">替換結果</span>
+          <button class="ghost" onclick={copyResult}>{copied ? '✓ 已複製' : '複製'}</button>
         </div>
         <div class="result-text">{replaceResult}</div>
       </div>

@@ -154,10 +154,10 @@
 
   // ── Formatters ────────────────────────────────────────────────────────────
   function fmt(n: number, decimals = 2): string {
-    return n.toLocaleString('zh-CN', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+    return n.toLocaleString('zh-TW', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
   }
   function fmtWan(n: number): string {
-    if (n >= 10000) return `${(n / 10000).toFixed(0)}万`;
+    if (n >= 10000) return `${(n / 10000).toFixed(0)}萬`;
     return n.toFixed(0);
   }
 </script>
@@ -165,17 +165,17 @@
 <div class="page-body">
   <!-- Intro -->
   <div class="intro">
-    <h2>房贷试算</h2>
-    <p class="lede">等额本息 · 等额本金 · 摊销明细 · 纯浏览器计算</p>
+    <h2>房貸試算</h2>
+    <p class="lede">等額本息 · 等額本金 · 攤銷明細 · 純瀏覽器計算</p>
   </div>
 
   <!-- Inputs -->
   <div class="card">
-    <div class="section-label">贷款参数</div>
+    <div class="section-label">貸款參數</div>
     <div class="input-grid">
 
       <div class="field">
-        <label class="field-label" for="total-price">房价总额（元）</label>
+        <label class="field-label" for="total-price">房價總額（元）</label>
         <input id="total-price" class="num-input" type="number" min="0" step="10000"
           bind:value={totalPrice} />
       </div>
@@ -190,7 +190,7 @@
       </div>
 
       <div class="field">
-        <label class="field-label" for="loan-years">贷款年限</label>
+        <label class="field-label" for="loan-years">貸款年限</label>
         <select id="loan-years" class="select-input" bind:value={years}>
           {#each [5, 10, 15, 20, 25, 30] as y}
             <option value={y}>{y} 年</option>
@@ -205,17 +205,17 @@
       </div>
 
       <div class="field field--full">
-        <span class="field-label">还款方式</span>
+        <span class="field-label">還款方式</span>
         <div class="radio-group">
           <label class="radio-label" class:active={method === 'equal-installment'}>
             <input type="radio" bind:group={method} value="equal-installment" />
-            等额本息
-            <span class="radio-hint">每月还款固定</span>
+            等額本息
+            <span class="radio-hint">每月還款固定</span>
           </label>
           <label class="radio-label" class:active={method === 'equal-principal'}>
             <input type="radio" bind:group={method} value="equal-principal" />
-            等额本金
-            <span class="radio-hint">每月本金固定，利息递减</span>
+            等額本金
+            <span class="radio-hint">每月本金固定，利息遞減</span>
           </label>
         </div>
       </div>
@@ -240,17 +240,17 @@
     {/if}
 
     <div class="metric-card">
-      <div class="metric-label">贷款金额</div>
+      <div class="metric-label">貸款金額</div>
       <div class="metric-value">{fmt(loanAmount, 0)} <span class="metric-unit">元</span></div>
     </div>
 
     <div class="metric-card">
-      <div class="metric-label">总利息</div>
+      <div class="metric-label">總利息</div>
       <div class="metric-value warn">{fmt(totalInterest, 0)} <span class="metric-unit">元</span></div>
     </div>
 
     <div class="metric-card">
-      <div class="metric-label">还款总额</div>
+      <div class="metric-label">還款總額</div>
       <div class="metric-value">{fmt(totalPayment, 0)} <span class="metric-unit">元</span></div>
     </div>
 
@@ -315,7 +315,7 @@
 
   <!-- Amortisation table -->
   <div class="card">
-    <div class="section-label">摊销明细（前12期 + 末期）</div>
+    <div class="section-label">攤銷明細（前12期 + 末期）</div>
     <div class="table-wrap">
       <table class="amort-table">
         <thead>
@@ -324,7 +324,7 @@
             <th>月供</th>
             <th>本金</th>
             <th>利息</th>
-            <th>剩余本金</th>
+            <th>剩餘本金</th>
           </tr>
         </thead>
         <tbody>

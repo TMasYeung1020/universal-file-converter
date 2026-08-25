@@ -19,22 +19,22 @@
   const CATEGORIES: Category[] = [
     {
       icon: '📁',
-      label: '文件格式转换',
+      label: '檔案格式轉換',
       color: '246',
       tools: [
-        { name: '万能格式转换器', desc: '19 种格式互转，纯浏览器', route: '/convert', live: true },
+        { name: '萬能格式轉換器', desc: '19 種格式互轉，純瀏覽器', route: '/convert', live: true },
       ],
     },
     {
       icon: '🔧',
-      label: '开发者 & IT 工具',
+      label: '開發者 & IT 工具',
       color: '217',
       tools: [
-        { name: 'JSON 格式化', desc: '高亮 · 格式化 · 压缩 · 转 CSV/YAML', route: '/tools/json', live: true },
-        { name: 'Base64 / URL 编解码', desc: '文字或文件 ↔ Base64', route: '/tools/base64', live: true },
-        { name: 'Cron 表达式解析器', desc: '可视化配置定时任务', route: '/tools/cron', live: true },
-        { name: 'RegEx 测试器', desc: '实时匹配高亮', route: '/tools/regex', live: true },
-        { name: 'PDF 合并 / 拆分 / 旋转', desc: '用 pdf-lib 在前端完成', route: '/tools/pdf', live: true },
+        { name: 'JSON 格式化', desc: '高亮 · 格式化 · 壓縮 · 轉 CSV/YAML', route: '/tools/json', live: true },
+        { name: 'Base64 / URL 編解碼', desc: '文字或檔案 ↔ Base64', route: '/tools/base64', live: true },
+        { name: 'Cron 表達式解析器', desc: '可視化配置定時任務', route: '/tools/cron', live: true },
+        { name: 'RegEx 測試器', desc: '即時匹配高亮', route: '/tools/regex', live: true },
+        { name: 'PDF 合併 / 拆分 / 旋轉', desc: '用 pdf-lib 在前端完成', route: '/tools/pdf', live: true },
       ],
     },
     {
@@ -42,39 +42,39 @@
       label: '文字 & 排版工具',
       color: '160',
       tools: [
-        { name: '字数 & 字符统计', desc: '字数 · 段落 · 阅读时间', route: '/tools/wordcount', live: true },
-        { name: '文字 Diff 比对', desc: '红绿高亮增删内容', route: '/tools/diff', live: true },
-        { name: '繁简 / 全半形转换', desc: '批量替换', route: '/tools/convert-text', live: true },
+        { name: '字數 & 字符統計', desc: '字數 · 段落 · 閱讀時間', route: '/tools/wordcount', live: true },
+        { name: '文字 Diff 比對', desc: '紅綠高亮增刪內容', route: '/tools/diff', live: true },
+        { name: '繁簡 / 全半形轉換', desc: '批量替換', route: '/tools/convert-text', live: true },
       ],
     },
     {
       icon: '🧮',
-      label: '日常计算器',
+      label: '日常計算器',
       color: '142',
       tools: [
-        { name: '复利 & 定投计算器', desc: '资产成长曲线 & 表格', route: '/tools/compound', live: true },
-        { name: '房贷试算', desc: '等额本息 & 本金，月还款明细', route: '/tools/mortgage', live: true },
-        { name: 'TDEE 卡路里计算', desc: '基础代谢 & 热量需求', route: '/tools/tdee', live: true },
-        { name: '单位转换器', desc: '重量 · 长度 · 储存容量', route: '/tools/units', live: true },
+        { name: '複利 & 定投計算器', desc: '資產成長曲線 & 表格', route: '/tools/compound', live: true },
+        { name: '房貸試算', desc: '等額本息 & 本金，月還款明細', route: '/tools/mortgage', live: true },
+        { name: 'TDEE 卡路里計算', desc: '基礎代謝 & 熱量需求', route: '/tools/tdee', live: true },
+        { name: '單位轉換器', desc: '重量 · 長度 · 儲存容量', route: '/tools/units', live: true },
       ],
     },
     {
       icon: '🖼️',
-      label: '图片 & 媒体处理',
+      label: '圖片 & 媒體處理',
       color: '30',
       tools: [
-        { name: '图片压缩 & 裁切', desc: 'Canvas toDataURL 本地压缩', route: '/tools/image-compress', live: true },
-        { name: '浮水印添加器', desc: '文字 / Logo 叠加并导出', route: '/tools/watermark', live: true },
-        { name: '纯色 / 绿幕去背', desc: 'RGBA 像素色差过滤', route: '/tools/remove-bg', live: true },
-        { name: 'AVIF 转换', desc: '浏览器端压缩新格式', route: '/tools/avif', live: true },
+        { name: '圖片壓縮 & 裁切', desc: 'Canvas toDataURL 本地壓縮', route: '/tools/image-compress', live: true },
+        { name: '浮水印添加器', desc: '文字 / Logo 疊加並導出', route: '/tools/watermark', live: true },
+        { name: '純色 / 綠幕去背', desc: 'RGBA 像素色差過濾', route: '/tools/remove-bg', live: true },
+        { name: 'AVIF 轉換', desc: '瀏覽器端壓縮新格式', route: '/tools/avif', live: true },
       ],
     },
     {
       icon: '🎬',
-      label: '视频工具',
+      label: '影片工具',
       color: '0',
       tools: [
-        { name: '视频拼接 & 导出', desc: 'ffmpeg.wasm 本地处理', route: '/tools/video-stitch', live: false },
+        { name: '影片拼接 & 導出', desc: 'ffmpeg.wasm 本地處理', route: '/tools/video-stitch', live: true },
       ],
     },
   ];
@@ -82,8 +82,8 @@
 
 <div class="hub">
   <div class="hero">
-    <h2>选一个工具，马上开始</h2>
-    <p>所有工具都在浏览器本地运行，文件不上传任何服务器。</p>
+    <h2>選一個工具，馬上開始</h2>
+    <p>所有工具都在瀏覽器本地運行，檔案不上傳任何伺服器。</p>
   </div>
 
   <div class="categories">
@@ -105,7 +105,7 @@
               <div class="tool-card soon">
                 <span class="tool-name">{tool.name}</span>
                 <span class="tool-desc">{tool.desc}</span>
-                <span class="badge soon-badge">开发中</span>
+                <span class="badge soon-badge">開發中</span>
               </div>
             {/if}
           {/each}

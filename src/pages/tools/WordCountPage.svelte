@@ -40,8 +40,8 @@
       .split(/\s+/)
       .filter((w) => w.length > 0).length;
     const mins = nonCjkWords / 200 + cjkCount / 400;
-    if (mins < 0.5) return '< 1 分钟';
-    return `约 ${Math.ceil(mins)} 分钟`;
+    if (mins < 0.5) return '< 1 分鐘';
+    return `約 ${Math.ceil(mins)} 分鐘`;
   });
 
   // ── actions ────────────────────────────────────────────────────────────────
@@ -61,27 +61,27 @@
 <div class="page-body">
   <!-- intro -->
   <div class="intro">
-    <h2>字数 &amp; 字符统计</h2>
-    <p class="lede">粘贴或输入文本，即时获得字符数、单词数、段落数等详细统计。</p>
+    <h2>字數 &amp; 字元統計</h2>
+    <p class="lede">貼上或輸入文字，即時獲得字元數、單詞數、段落數等詳細統計。</p>
   </div>
 
   <!-- editor -->
   <div class="card editor-card">
     <div class="toolbar">
-      <span class="toolbar-label">输入文本</span>
+      <span class="toolbar-label">輸入文字</span>
       <div class="toolbar-actions">
-        <button class="btn-ghost" onclick={handlePaste} title="从剪贴板粘贴">
-          粘贴
+        <button class="btn-ghost" onclick={handlePaste} title="從剪貼板貼上">
+          貼上
         </button>
-        <button class="btn-ghost danger" onclick={handleClear} title="清空文本">
+        <button class="btn-ghost danger" onclick={handleClear} title="清空文字">
           清空
         </button>
       </div>
     </div>
     <textarea
       bind:value={text}
-      aria-label="统计文本输入框"
-      placeholder="在此输入或粘贴文本……"
+      aria-label="統計文字輸入框"
+      placeholder="在此輸入或貼上文字……"
       spellcheck="false"
     ></textarea>
   </div>
@@ -89,35 +89,35 @@
   <!-- stats grid -->
   <div class="stats-grid">
     <div class="stat-card">
-      <span class="stat-label">字符数（含空格）</span>
+      <span class="stat-label">字元數（含空格）</span>
       <span class="stat-value">{charWithSpaces.toLocaleString('zh-CN')}</span>
     </div>
     <div class="stat-card">
-      <span class="stat-label">字符数（不含空格）</span>
+      <span class="stat-label">字元數（不含空格）</span>
       <span class="stat-value">{charWithoutSpaces.toLocaleString('zh-CN')}</span>
     </div>
     <div class="stat-card">
-      <span class="stat-label">单词数</span>
+      <span class="stat-label">單詞數</span>
       <span class="stat-value">{wordCount.toLocaleString('zh-CN')}</span>
     </div>
     <div class="stat-card">
-      <span class="stat-label">中文字符数</span>
+      <span class="stat-label">中文字元數</span>
       <span class="stat-value">{cjkCount.toLocaleString('zh-CN')}</span>
     </div>
     <div class="stat-card">
-      <span class="stat-label">行数</span>
+      <span class="stat-label">行數</span>
       <span class="stat-value">{lineCount.toLocaleString('zh-CN')}</span>
     </div>
     <div class="stat-card">
-      <span class="stat-label">段落数</span>
+      <span class="stat-label">段落數</span>
       <span class="stat-value">{paragraphCount.toLocaleString('zh-CN')}</span>
     </div>
     <div class="stat-card">
-      <span class="stat-label">句子数</span>
+      <span class="stat-label">句子數</span>
       <span class="stat-value">{sentenceCount.toLocaleString('zh-CN')}</span>
     </div>
     <div class="stat-card accent-card">
-      <span class="stat-label">预计阅读时间</span>
+      <span class="stat-label">預計閱讀時間</span>
       <span class="stat-value time-value">{readingTime}</span>
     </div>
   </div>

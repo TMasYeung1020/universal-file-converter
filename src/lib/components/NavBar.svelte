@@ -7,7 +7,7 @@
 
   const links: { label: string; href: string; icon: string }[] = [
     { label: '全部工具', href: '#/', icon: '⚡' },
-    { label: '文件转换', href: '#/convert', icon: '📁' },
+    { label: '檔案轉換', href: '#/convert', icon: '📁' },
   ];
 </script>
 

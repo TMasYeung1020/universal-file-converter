@@ -114,7 +114,7 @@
 
   function loadFile(f: File) {
     if (!f.type.startsWith('image/')) {
-      error = '请上传图片文件 (PNG / JPG / WebP)';
+      error = '請上傳圖片檔案 (PNG / JPG / WebP)';
       return;
     }
     error = '';
@@ -182,7 +182,7 @@
         showAfter = true;
         drawPreview();
       } catch (err) {
-        error = '处理失败，请重试';
+        error = '處理失敗，請重試';
       } finally {
         processing = false;
       }
@@ -263,8 +263,8 @@
 
 <div class="page-body">
   <div class="intro">
-    <h2>纯色 / 绿幕去背</h2>
-    <p class="lede">上传图片，点击取样背景色或选择预设色，一键去除纯色背景，支持透明 PNG 输出。</p>
+    <h2>純色 / 綠幕去背</h2>
+    <p class="lede">上傳圖片，點擊色彩取樣背景色或選擇預設顏色，一鍵去除純色背景，支援透明 PNG 輸出。</p>
   </div>
 
   <!-- Upload zone -->
@@ -287,8 +287,8 @@
           <polyline points="21 15 16 10 5 21"/>
         </svg>
       </div>
-      <p class="upload-label">点击或拖拽上传图片</p>
-      <p class="upload-hint">支持 PNG、JPG、WebP</p>
+      <p class="upload-label">點擊或拖放上傳圖片</p>
+      <p class="upload-hint">支援 PNG、JPG、WebP</p>
       <input
         bind:this={fileInput}
         type="file"
@@ -309,7 +309,7 @@
       <div class="preview-section">
         <div class="preview-toolbar">
           <span class="preview-label">
-            {mode === 'picker' ? '点击图片取样背景色' : '预览'}
+            {mode === 'picker' ? '點擊圖片色彩取樣背景色' : '預覽'}
           </span>
           {#if hasResult}
             <div class="toggle-group">
@@ -322,11 +322,11 @@
                 class="toggle-btn"
                 class:active={showAfter}
                 onclick={() => { showAfter = true; drawPreview(); }}
-              >去背后</button>
+              >去背後</button>
             </div>
           {/if}
           <button class="btn-ghost btn-sm" onclick={() => { file = null; originalImageData = null; originalDataUrl = ''; resultDataUrl = ''; pickedColor = null; error = ''; }}>
-            重新上传
+            重新上傳
           </button>
         </div>
 
@@ -338,7 +338,7 @@
           {#if processing}
             <div class="processing-overlay">
               <div class="spinner"></div>
-              <span>处理中…</span>
+              <span>處理中…</span>
             </div>
           {/if}
         </div>
@@ -346,7 +346,7 @@
         {#if pickedColor}
           <div class="sampled-color-row">
             <span class="sampled-swatch" style="background:{pickedHex}"></span>
-            <span class="sampled-label">已取样：<code>{pickedHex}</code></span>
+            <span class="sampled-label">已取樣：<code>{pickedHex}</code></span>
           </div>
         {/if}
       </div>
@@ -359,38 +359,38 @@
             class="tab-btn"
             class:active={mode === 'picker'}
             onclick={() => { mode = 'picker'; }}
-          >颜色取样</button>
+          >色彩取樣</button>
           <button
             class="tab-btn"
             class:active={mode === 'preset'}
             onclick={() => { mode = 'preset'; }}
-          >预设颜色</button>
+          >預設顏色</button>
         </div>
 
         {#if mode === 'picker'}
           <div class="panel">
-            <p class="panel-hint">在左侧预览图上点击背景区域，自动取样并去除该颜色。</p>
+            <p class="panel-hint">在左側預覽圖上點擊背景區域，自動取樣並去除該顏色。</p>
             {#if !pickedColor}
-              <div class="no-pick-notice">尚未取样 — 点击图片中的背景色</div>
+              <div class="no-pick-notice">尚未取樣 — 點擊圖片中的背景色</div>
             {/if}
           </div>
         {:else}
           <div class="panel">
-            <p class="panel-hint">选择预设颜色快速去除：</p>
+            <p class="panel-hint">選擇預設顏色快速去除：</p>
             <div class="preset-grid">
               <button
                 class="preset-btn green"
                 onclick={() => applyPreset('#00ff00')}
               >
                 <span class="preset-swatch" style="background:#00ff00"></span>
-                绿幕
+                綠幕
               </button>
               <button
                 class="preset-btn blue"
                 onclick={() => applyPreset('#0000ff')}
               >
                 <span class="preset-swatch" style="background:#0000ff"></span>
-                蓝幕
+                藍幕
               </button>
               <button
                 class="preset-btn white"
@@ -421,13 +421,13 @@
             bind:value={tolerance}
             class="slider"
           />
-          <div class="slider-hints"><span>精确</span><span>宽松</span></div>
+          <div class="slider-hints"><span>精確</span><span>寬鬆</span></div>
         </div>
 
         <!-- Feather -->
         <div class="control-group">
           <div class="control-header">
-            <label class="control-label">边缘羽化</label>
+            <label class="control-label">邊緣羽化</label>
             <span class="control-value">{feather} px</span>
           </div>
           <input
@@ -435,18 +435,18 @@
             bind:value={feather}
             class="slider"
           />
-          <div class="slider-hints"><span>硬边</span><span>柔边</span></div>
+          <div class="slider-hints"><span>硬邊</span><span>柔邊</span></div>
         </div>
 
         <!-- Output BG -->
         <div class="control-group">
-          <label class="control-label">输出背景</label>
+          <label class="control-label">輸出背景</label>
           <div class="output-bg-row">
             {#each [
               { value: 'transparent', label: '透明 (PNG)' },
               { value: '#ffffff', label: '白色' },
               { value: '#000000', label: '黑色' },
-              { value: 'custom', label: '自定义' }
+              { value: 'custom', label: '自訂' }
             ] as opt}
               <button
                 class="bg-option"
@@ -468,7 +468,7 @@
           </div>
           {#if outputBg === 'custom'}
             <div class="custom-color-row">
-              <label class="control-label-sm">颜色：</label>
+              <label class="control-label-sm">顏色：</label>
               <input type="color" bind:value={customBgColor} class="color-picker-input" />
               <span class="control-value">{customBgColor}</span>
             </div>
@@ -483,7 +483,7 @@
               onclick={reprocess}
               disabled={processing}
             >
-              {processing ? '处理中…' : '重新处理'}
+              {processing ? '處理中…' : '重新處理'}
             </button>
           {/if}
           {#if hasResult}
@@ -493,7 +493,7 @@
                 <polyline points="7 10 12 15 17 10"/>
                 <line x1="12" y1="15" x2="12" y2="3"/>
               </svg>
-              下载 PNG
+              下載 PNG
             </button>
           {/if}
         </div>

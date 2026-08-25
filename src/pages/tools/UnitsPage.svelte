@@ -31,26 +31,26 @@
         { label: '磅',   symbol: 'lb', toBase: (v) => v * 0.45359237,      fromBase: (v) => v / 0.45359237 },
         { label: '盎司', symbol: 'oz', toBase: (v) => v * 0.028349523125,  fromBase: (v) => v / 0.028349523125 },
         { label: '斤',   symbol: '斤', toBase: (v) => v * 0.5,             fromBase: (v) => v * 2 },
-        { label: '吨',   symbol: 't',  toBase: (v) => v * 1e3,             fromBase: (v) => v / 1e3 },
+        { label: '公噸', symbol: 't',  toBase: (v) => v * 1e3,             fromBase: (v) => v / 1e3 },
       ],
     },
     length: {
-      label: '长度',
+      label: '長度',
       units: [
-        { label: '米',   symbol: 'm',   toBase: (v) => v,            fromBase: (v) => v },
-        { label: '厘米', symbol: 'cm',  toBase: (v) => v / 100,      fromBase: (v) => v * 100 },
+        { label: '公尺', symbol: 'm',   toBase: (v) => v,            fromBase: (v) => v },
+        { label: '公分', symbol: 'cm',  toBase: (v) => v / 100,      fromBase: (v) => v * 100 },
         { label: '毫米', symbol: 'mm',  toBase: (v) => v / 1000,     fromBase: (v) => v * 1000 },
-        { label: '千米', symbol: 'km',  toBase: (v) => v * 1000,     fromBase: (v) => v / 1000 },
-        { label: '英寸', symbol: 'in',  toBase: (v) => v * 0.0254,   fromBase: (v) => v / 0.0254 },
-        { label: '英尺', symbol: 'ft',  toBase: (v) => v * 0.3048,   fromBase: (v) => v / 0.3048 },
-        { label: '码',   symbol: 'yd',  toBase: (v) => v * 0.9144,   fromBase: (v) => v / 0.9144 },
+        { label: '公里', symbol: 'km',  toBase: (v) => v * 1000,     fromBase: (v) => v / 1000 },
+        { label: '英吋', symbol: 'in',  toBase: (v) => v * 0.0254,   fromBase: (v) => v / 0.0254 },
+        { label: '英呎', symbol: 'ft',  toBase: (v) => v * 0.3048,   fromBase: (v) => v / 0.3048 },
+        { label: '碼',   symbol: 'yd',  toBase: (v) => v * 0.9144,   fromBase: (v) => v / 0.9144 },
         { label: '英里', symbol: 'mi',  toBase: (v) => v * 1609.344, fromBase: (v) => v / 1609.344 },
         { label: '海里', symbol: 'nmi', toBase: (v) => v * 1852,     fromBase: (v) => v / 1852 },
         { label: '光年', symbol: 'ly',  toBase: (v) => v * 9.4607304725808e15, fromBase: (v) => v / 9.4607304725808e15 },
       ],
     },
     storage: {
-      label: '存储容量',
+      label: '儲存容量',
       units: [
         { label: 'Byte', symbol: 'B',  toBase: (v) => v,                    fromBase: (v) => v },
         { label: 'KB',   symbol: 'KB', toBase: (v) => v * 1024,             fromBase: (v) => v / 1024 },
@@ -61,11 +61,11 @@
       ],
     },
     temperature: {
-      label: '温度',
+      label: '溫度',
       units: [
-        { label: '摄氏',   symbol: '°C', toBase: (v) => v,                 fromBase: (v) => v },
-        { label: '华氏',   symbol: '°F', toBase: (v) => (v - 32) * 5 / 9, fromBase: (v) => v * 9 / 5 + 32 },
-        { label: '开尔文', symbol: 'K',  toBase: (v) => v - 273.15,        fromBase: (v) => v + 273.15 },
+        { label: '攝氏',   symbol: '°C', toBase: (v) => v,                 fromBase: (v) => v },
+        { label: '華氏',   symbol: '°F', toBase: (v) => (v - 32) * 5 / 9, fromBase: (v) => v * 9 / 5 + 32 },
+        { label: '克耳文', symbol: 'K',  toBase: (v) => v - 273.15,        fromBase: (v) => v + 273.15 },
       ],
     },
   };
@@ -121,8 +121,8 @@
 <div class="page-body">
   <!-- intro -->
   <div class="intro">
-    <h2>单位转换器</h2>
-    <p class="lede">在常用单位之间快速换算。选择分类，输入数值，即时查看所有结果。</p>
+    <h2>單位轉換器</h2>
+    <p class="lede">在常用單位之間快速換算。選擇分類，輸入數值，即時查看所有結果。</p>
   </div>
 
   <!-- converter card -->
@@ -152,14 +152,14 @@
           class:invalid={inputValue.trim() !== '' && !isValid}
           bind:value={inputValue}
           placeholder="0"
-          aria-label="数值"
+          aria-label="數值"
           autocomplete="off"
           spellcheck="false"
         />
         <select
           class="unit-sel"
           bind:value={fromUnit}
-          aria-label="来源单位"
+          aria-label="來源單位"
         >
           {#each currentUnits as u (u.symbol)}
             <option value={u.symbol}>{u.label}（{u.symbol}）</option>
@@ -171,7 +171,7 @@
     <!-- results -->
     <div class="results-section">
       {#if isValid && results.length > 0}
-        <ul class="results" aria-label="换算结果列表">
+        <ul class="results" aria-label="換算結果列表">
           {#each results as r (r.symbol)}
             <li class="result-row">
               <span class="eq">=</span>
@@ -182,9 +182,9 @@
           {/each}
         </ul>
       {:else if inputValue.trim() !== '' && !isValid}
-        <p class="hint hint-error">请输入有效数值</p>
+        <p class="hint hint-error">請輸入有效數值</p>
       {:else}
-        <p class="hint">输入数值以查看所有换算结果</p>
+        <p class="hint">輸入數值以查看所有換算結果</p>
       {/if}
     </div>
   </div>

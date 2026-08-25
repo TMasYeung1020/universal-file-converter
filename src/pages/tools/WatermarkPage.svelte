@@ -9,7 +9,7 @@
   let mode = $state<'text' | 'image'>('text');
 
   // text watermark
-  let wmText = $state('© 版权所有');
+  let wmText = $state('© 版權所有');
   let wmFontSize = $state(36);
   let wmColor = $state('#ffffff');
   let wmOpacity = $state(50);
@@ -204,7 +204,7 @@
     link.download = 'watermarked.png';
     link.href = canvas.toDataURL('image/png');
     link.click();
-    outputMessage = '已下载！';
+    outputMessage = '已下載！';
     setTimeout(() => (outputMessage = ''), 2000);
   }
 </script>
@@ -212,7 +212,7 @@
 <div class="page-body">
   <div class="intro">
     <h2>浮水印添加器</h2>
-    <p class="lede">为图片添加文字或图片水印，在浏览器本地处理，不上传服务器。</p>
+    <p class="lede">為圖片添加文字或圖片浮水印，在瀏覽器本地處理，不上傳伺服器。</p>
   </div>
 
   <!-- Base image upload -->
@@ -229,9 +229,9 @@
     onkeydown={(e) => e.key === 'Enter' && document.getElementById('base-input')?.click()}
   >
     {#if baseImage}
-      <span class="drop-label">已选择：{baseFile?.name}（点击更换）</span>
+      <span class="drop-label">已選擇：{baseFile?.name}（點擊更換）</span>
     {:else}
-      <span class="drop-label">拖放图片到此处，或点击选择（PNG / JPG / WebP）</span>
+      <span class="drop-label">拖放圖片到此處，或點擊選擇（PNG / JPG / WebP）</span>
     {/if}
     <input id="base-input" type="file" accept="image/png,image/jpeg,image/webp" style="display:none" oninput={onBaseInput} />
   </div>
@@ -242,23 +242,23 @@
     <div class="controls-panel">
       <!-- Mode tabs -->
       <div class="tabs">
-        <button class="tab" class:active={mode === 'text'} onclick={() => (mode = 'text')}>文字水印</button>
-        <button class="tab" class:active={mode === 'image'} onclick={() => (mode = 'image')}>图片水印</button>
+        <button class="tab" class:active={mode === 'text'} onclick={() => (mode = 'text')}>文字浮水印</button>
+        <button class="tab" class:active={mode === 'image'} onclick={() => (mode = 'image')}>圖片浮水印</button>
       </div>
 
       {#if mode === 'text'}
       <div class="control-group">
-        <label>水印文字</label>
-        <input type="text" bind:value={wmText} placeholder="© 版权所有" />
+        <label>浮水印文字</label>
+        <input type="text" bind:value={wmText} placeholder="© 版權所有" />
       </div>
 
       <div class="control-group">
-        <label>字体大小：{wmFontSize}px</label>
+        <label>字體大小：{wmFontSize}px</label>
         <input type="range" min="12" max="120" bind:value={wmFontSize} />
       </div>
 
       <div class="control-group">
-        <label>字体颜色</label>
+        <label>字體顏色</label>
         <input type="color" bind:value={wmColor} />
       </div>
 
@@ -268,11 +268,11 @@
       </div>
 
       <div class="control-group">
-        <label>字体</label>
+        <label>字體</label>
         <select bind:value={wmFontFamily}>
-          <option value="default">默认（无衬线）</option>
-          <option value="mono">等宽</option>
-          <option value="serif">衬线</option>
+          <option value="default">預設（無襯線）</option>
+          <option value="mono">等寬</option>
+          <option value="serif">襯線</option>
         </select>
       </div>
 
@@ -283,28 +283,28 @@
           <option value="top-right">右上</option>
           <option value="bottom-left">左下</option>
           <option value="bottom-right">右下</option>
-          <option value="center">居中</option>
-          <option value="tile">平铺</option>
+          <option value="center">置中</option>
+          <option value="tile">平鋪</option>
         </select>
       </div>
 
       <div class="control-group">
-        <label>旋转角度：{wmRotation}°</label>
+        <label>旋轉角度：{wmRotation}°</label>
         <input type="range" min="-45" max="45" bind:value={wmRotation} />
       </div>
 
       {:else}
       <!-- image watermark -->
       <div class="control-group">
-        <label>水印图片</label>
+        <label>浮水印圖片</label>
         <button class="upload-btn" onclick={() => document.getElementById('wm-input')?.click()}>
-          {wmImage ? wmImageFile?.name : '选择图片'}
+          {wmImage ? wmImageFile?.name : '選擇圖片'}
         </button>
         <input id="wm-input" type="file" accept="image/*" style="display:none" oninput={onWmInput} />
       </div>
 
       <div class="control-group">
-        <label>缩放比例：{wmScale}%</label>
+        <label>縮放比例：{wmScale}%</label>
         <input type="range" min="5" max="100" bind:value={wmScale} />
       </div>
 
@@ -320,19 +320,19 @@
           <option value="top-right">右上</option>
           <option value="bottom-left">左下</option>
           <option value="bottom-right">右下</option>
-          <option value="center">居中</option>
-          <option value="tile">平铺</option>
+          <option value="center">置中</option>
+          <option value="tile">平鋪</option>
         </select>
       </div>
       {/if}
 
-      <button class="download-btn" onclick={download}>下载带水印图片</button>
+      <button class="download-btn" onclick={download}>下載帶浮水印圖片</button>
       {#if outputMessage}<p class="success-msg">{outputMessage}</p>{/if}
     </div>
 
     <!-- Preview -->
     <div class="preview-panel">
-      <p class="preview-label">预览（缩略图，最大 {MAX_PREVIEW}px）</p>
+      <p class="preview-label">預覽（縮略圖，最大 {MAX_PREVIEW}px）</p>
       <div class="canvas-wrap">
         <canvas bind:this={previewCanvas}></canvas>
       </div>

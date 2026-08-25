@@ -34,15 +34,15 @@
     for (const part of parts) {
       if (part.includes('-')) {
         const [a, b] = part.split('-').map(Number);
-        if (isNaN(a) || isNaN(b)) throw new Error(`无效范围: "${part}"`);
+        if (isNaN(a) || isNaN(b)) throw new Error(`無效範圍: "${part}"`);
         const lo = Math.min(a, b);
         const hi = Math.max(a, b);
-        if (lo < 1 || hi > totalPages) throw new Error(`页码超出范围 (共 ${totalPages} 页): "${part}"`);
+        if (lo < 1 || hi > totalPages) throw new Error(`頁碼超出範圍 (共 ${totalPages} 頁): "${part}"`);
         for (let i = lo; i <= hi; i++) indices.add(i - 1);
       } else {
         const n = Number(part);
-        if (isNaN(n)) throw new Error(`无效页码: "${part}"`);
-        if (n < 1 || n > totalPages) throw new Error(`页码超出范围 (共 ${totalPages} 页): "${part}"`);
+        if (isNaN(n)) throw new Error(`無效頁碼: "${part}"`);
+        if (n < 1 || n > totalPages) throw new Error(`頁碼超出範圍 (共 ${totalPages} 頁): "${part}"`);
         indices.add(n - 1);
       }
     }
@@ -91,7 +91,7 @@
 
   async function doMerge() {
     mergeError = '';
-    if (mergeFiles.length < 2) { mergeError = '请至少上传 2 个 PDF 文件。'; return; }
+    if (mergeFiles.length < 2) { mergeError = '請至少上傳 2 個 PDF 檔案。'; return; }
     mergeLoading = true;
     try {
       const dest = await PDFDocument.create();
@@ -142,8 +142,8 @@
 
   async function doSplit() {
     splitError = '';
-    if (!splitFile) { splitError = '请先上传 PDF 文件。'; return; }
-    if (!splitRangeInput.trim()) { splitError = '请输入页码范围，例如 1-3,5,7-9。'; return; }
+    if (!splitFile) { splitError = '請先上傳 PDF 檔案。'; return; }
+    if (!splitRangeInput.trim()) { splitError = '請輸入頁碼範圍，例如 1-3,5,7-9。'; return; }
     splitLoading = true;
     try {
       const src = await PDFDocument.load(await readFileBytes(splitFile));
@@ -206,7 +206,7 @@
 
   async function doRotate() {
     rotateError = '';
-    if (!rotateFile) { rotateError = '请先上传 PDF 文件。'; return; }
+    if (!rotateFile) { rotateError = '請先上傳 PDF 檔案。'; return; }
     rotateLoading = true;
     try {
       const doc = await PDFDocument.load(await readFileBytes(rotateFile));
@@ -233,13 +233,13 @@
 <div class="page-body">
   <div class="intro">
     <h2>PDF 工具</h2>
-    <p class="lede">合并 · 拆分 · 旋转 · 纯浏览器处理，文件不上传任何服务器</p>
+    <p class="lede">合併 · 拆分 · 旋轉 · 純瀏覽器處理，檔案不上傳任何伺服器</p>
   </div>
 
   <div class="tabs" role="tablist">
-    <button role="tab" class:active={activeTab === 'merge'} onclick={() => { activeTab = 'merge'; }}>合并 PDF</button>
+    <button role="tab" class:active={activeTab === 'merge'} onclick={() => { activeTab = 'merge'; }}>合併 PDF</button>
     <button role="tab" class:active={activeTab === 'split'} onclick={() => { activeTab = 'split'; }}>拆分 PDF</button>
-    <button role="tab" class:active={activeTab === 'rotate'} onclick={() => { activeTab = 'rotate'; }}>旋转页面</button>
+    <button role="tab" class:active={activeTab === 'rotate'} onclick={() => { activeTab = 'rotate'; }}>旋轉頁面</button>
   </div>
 
   <!-- Merge -->
@@ -252,16 +252,16 @@
         ondrop={handleMergeDrop}
       >
         <span class="drop-icon">📄</span>
-        <span class="drop-label">拖拽 PDF 文件到此处，或</span>
+        <span class="drop-label">拖放 PDF 檔案到此處，或</span>
         <label class="file-btn">
-          点击选择文件（支持多选）
+          點擊選擇檔案（支援多選）
           <input type="file" accept=".pdf" multiple onchange={handleMergeInput} />
         </label>
       </div>
 
       {#if mergeFiles.length > 0}
         <div class="list-head">
-          <span class="list-meta">已添加 {mergeFiles.length} 个文件（拖拽可排序）</span>
+          <span class="list-meta">已新增 {mergeFiles.length} 個檔案（拖放可排序）</span>
           <button class="ghost" onclick={() => { mergeFiles = []; }}>清空</button>
         </div>
         <ul class="file-list">
@@ -275,7 +275,7 @@
               <span class="drag-handle">⠿</span>
               <span class="file-name">{f.name}</span>
               <span class="file-size">{(f.size / 1024).toFixed(1)} KB</span>
-              <button class="rm-btn" aria-label="删除" onclick={() => removeMergeFile(i)}>×</button>
+              <button class="rm-btn" aria-label="刪除" onclick={() => removeMergeFile(i)}>×</button>
             </li>
           {/each}
         </ul>
@@ -283,7 +283,7 @@
 
       {#if mergeError}<p class="error">{mergeError}</p>{/if}
       <button class="primary-btn" disabled={mergeLoading || mergeFiles.length < 2} onclick={doMerge}>
-        {#if mergeLoading}<span class="spinner"></span> 处理中…{:else}合并并下载{/if}
+        {#if mergeLoading}<span class="spinner"></span> 處理中…{:else}合併並下載{/if}
       </button>
     </div>
   {/if}
@@ -298,9 +298,9 @@
         ondrop={handleSplitDrop}
       >
         <span class="drop-icon">📄</span>
-        <span class="drop-label">拖拽单个 PDF 文件到此处，或</span>
+        <span class="drop-label">拖放單個 PDF 檔案到此處，或</span>
         <label class="file-btn">
-          点击选择文件
+          點擊選擇檔案
           <input type="file" accept=".pdf" onchange={handleSplitInput} />
         </label>
       </div>
@@ -308,18 +308,18 @@
       {#if splitFile}
         <div class="file-info-row">
           <span class="file-name">{splitFile.name}</span>
-          <span class="page-count">共 <strong>{splitTotalPages}</strong> 页</span>
+          <span class="page-count">共 <strong>{splitTotalPages}</strong> 頁</span>
         </div>
         <div class="field">
-          <label for="split-range">页码范围</label>
-          <input id="split-range" type="text" placeholder="例：1-3,5,7-9  多段用分号：1-3;5;7-9" bind:value={splitRangeInput} />
-          <p class="hint">逗号分隔合并为一个 PDF；分号分隔多段打包为 ZIP。</p>
+          <label for="split-range">頁碼範圍</label>
+          <input id="split-range" type="text" placeholder="例：1-3,5,7-9  多段用分號：1-3;5;7-9" bind:value={splitRangeInput} />
+          <p class="hint">逗號分隔合併為一個 PDF；分號分隔多段打包為 ZIP。</p>
         </div>
       {/if}
 
       {#if splitError}<p class="error">{splitError}</p>{/if}
       <button class="primary-btn" disabled={splitLoading || !splitFile || !splitRangeInput.trim()} onclick={doSplit}>
-        {#if splitLoading}<span class="spinner"></span> 处理中…{:else}拆分并下载{/if}
+        {#if splitLoading}<span class="spinner"></span> 處理中…{:else}拆分並下載{/if}
       </button>
     </div>
   {/if}
@@ -334,9 +334,9 @@
         ondrop={handleRotateDrop}
       >
         <span class="drop-icon">📄</span>
-        <span class="drop-label">拖拽单个 PDF 文件到此处，或</span>
+        <span class="drop-label">拖放單個 PDF 檔案到此處，或</span>
         <label class="file-btn">
-          点击选择文件
+          點擊選擇檔案
           <input type="file" accept=".pdf" onchange={handleRotateInput} />
         </label>
       </div>
@@ -344,15 +344,15 @@
       {#if rotateFile}
         <div class="file-info-row">
           <span class="file-name">{rotateFile.name}</span>
-          <span class="page-count">共 <strong>{rotateTotalPages}</strong> 页</span>
+          <span class="page-count">共 <strong>{rotateTotalPages}</strong> 頁</span>
         </div>
         <div class="field">
-          <label for="rotate-pages">旋转哪些页</label>
+          <label for="rotate-pages">旋轉哪些頁</label>
           <input id="rotate-pages" type="text" placeholder="all 或 1,3,5 或 2-4" bind:value={rotatePagesInput} />
-          <p class="hint">all 旋转全部，或逗号 / 范围指定页码。</p>
+          <p class="hint">all 旋轉全部，或逗號 / 範圍指定頁碼。</p>
         </div>
         <div class="field">
-          <div class="field-group-label">旋转角度</div>
+          <div class="field-group-label">旋轉角度</div>
           <div class="angle-group">
             {#each ([90, 180, 270] as const) as angle}
               <label class="angle-opt">
@@ -366,7 +366,7 @@
 
       {#if rotateError}<p class="error">{rotateError}</p>{/if}
       <button class="primary-btn" disabled={rotateLoading || !rotateFile} onclick={doRotate}>
-        {#if rotateLoading}<span class="spinner"></span> 处理中…{:else}旋转并下载{/if}
+        {#if rotateLoading}<span class="spinner"></span> 處理中…{:else}旋轉並下載{/if}
       </button>
     </div>
   {/if}

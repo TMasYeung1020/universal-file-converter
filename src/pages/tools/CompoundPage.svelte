@@ -59,8 +59,8 @@
   function fmtCN(n: number): string {
     const abs = Math.abs(n);
     const sign = n < 0 ? '-' : '';
-    if (abs >= 1e8) return sign + (abs / 1e8).toFixed(2) + ' 亿';
-    if (abs >= 1e4) return sign + (abs / 1e4).toFixed(2) + ' 万';
+    if (abs >= 1e8) return sign + (abs / 1e8).toFixed(2) + ' 億';
+    if (abs >= 1e4) return sign + (abs / 1e4).toFixed(2) + ' 萬';
     return sign + abs.toLocaleString('zh-CN', { maximumFractionDigits: 0 });
   }
 
@@ -126,8 +126,8 @@
 
 <div class="page-body">
   <div class="intro">
-    <h2>复利 & 定投计算器</h2>
-    <p class="lede">输入初始本金、月定投额和年利率，查看复利增长曲线与最终收益。</p>
+    <h2>複利 & 定投計算器</h2>
+    <p class="lede">輸入初始本金、月定投額和年利率，查看複利增長曲線與最終收益。</p>
   </div>
 
   <div class="tool-layout">
@@ -145,7 +145,7 @@
       </div>
 
       <div class="field-group">
-        <label for="monthly-dca">月定投金额（元）</label>
+        <label for="monthly-dca">月定投金額（元）</label>
         <input
           id="monthly-dca"
           type="number"
@@ -168,7 +168,7 @@
       </div>
 
       <div class="field-group">
-        <label for="years">投资年限（年）</label>
+        <label for="years">投資年限（年）</label>
         <input
           id="years"
           type="number"
@@ -180,7 +180,7 @@
       </div>
 
       <div class="field-group">
-        <label for="frequency">复利频率</label>
+        <label for="frequency">複利頻率</label>
         <select id="frequency" bind:value={frequency}>
           {#each frequencyOptions as opt}
             <option value={opt.value}>{opt.label}</option>
@@ -192,22 +192,22 @@
     <!-- Summary cards -->
     <section class="summary-cards">
       <div class="card card--accent">
-        <span class="card-label">最终资产</span>
+        <span class="card-label">最終資產</span>
         <span class="card-value">{fmtCN(finalBalance)}</span>
         <span class="card-sub">¥ {fmtFull(finalBalance)}</span>
       </div>
       <div class="card">
-        <span class="card-label">投入总额</span>
+        <span class="card-label">投入總額</span>
         <span class="card-value">{fmtCN(totalInvested)}</span>
         <span class="card-sub">¥ {fmtFull(totalInvested)}</span>
       </div>
       <div class="card card--success">
-        <span class="card-label">总收益</span>
+        <span class="card-label">總收益</span>
         <span class="card-value">{fmtCN(totalProfit)}</span>
         <span class="card-sub">¥ {fmtFull(totalProfit)}</span>
       </div>
       <div class="card card--roi">
-        <span class="card-label">投资回报率</span>
+        <span class="card-label">投資報酬率</span>
         <span class="card-value">{roi.toFixed(1)}%</span>
         <span class="card-sub">本金翻 {(finalBalance / (principal || 1)).toFixed(1)} 倍</span>
       </div>
@@ -215,12 +215,12 @@
 
     <!-- Chart -->
     <section class="chart-section">
-      <h3 class="section-title">增长曲线</h3>
+      <h3 class="section-title">增長曲線</h3>
       <div class="chart-wrap">
         <svg
           viewBox="0 0 {SVG_W} {SVG_H}"
           preserveAspectRatio="xMidYMid meet"
-          aria-label="资产增长曲线图"
+          aria-label="資產增長曲線圖"
           role="img"
         >
           <!-- Grid lines -->
@@ -299,10 +299,10 @@
 
         <div class="legend">
           <span class="legend-item legend-item--accent">
-            <span class="legend-line"></span>资产总值
+            <span class="legend-line"></span>資產總值
           </span>
           <span class="legend-item legend-item--muted">
-            <span class="legend-line legend-line--dashed"></span>投入总额
+            <span class="legend-line legend-line--dashed"></span>投入總額
           </span>
         </div>
       </div>
@@ -310,14 +310,14 @@
 
     <!-- Table -->
     <section class="table-section">
-      <h3 class="section-title">逐年明细</h3>
+      <h3 class="section-title">逐年明細</h3>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
               <th>年份</th>
-              <th>投入总额</th>
-              <th>资产总值</th>
+              <th>投入總額</th>
+              <th>資產總值</th>
               <th>收益</th>
             </tr>
           </thead>

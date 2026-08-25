@@ -22,6 +22,7 @@
   import WatermarkPage from './pages/tools/WatermarkPage.svelte';
   import RemoveBgPage from './pages/tools/RemoveBgPage.svelte';
   import AvifPage from './pages/tools/AvifPage.svelte';
+  import VideoStitchPage from './pages/tools/VideoStitchPage.svelte';
 
   function hashToRoute(hash: string): string {
     // Strip the leading '#' so we get '/convert', '/', etc.
@@ -94,17 +95,19 @@
       <RemoveBgPage />
     {:else if route === '/tools/avif'}
       <AvifPage />
+    {:else if route === '/tools/video-stitch'}
+      <VideoStitchPage />
     {:else}
       <div class="not-found">
         <div class="icon">🚧</div>
-        <h2>开发中</h2>
-        <p>这个工具还在做 — 回<a href="#/">首页</a>看看已有工具。</p>
+        <h2>開發中</h2>
+        <p>這個工具還在做 — 回<a href="#/">首頁</a>看看已有工具。</p>
       </div>
     {/if}
   </main>
 
   <footer class="foot">
-    <span>Universal Tools · 纯前端 · 无服务器 · 100% 客户端</span>
+    <span>Universal Tools · 純前端 · 無伺服器 · 100% 用戶端</span>
   </footer>
 </div>
 

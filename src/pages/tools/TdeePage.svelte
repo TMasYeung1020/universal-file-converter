@@ -11,11 +11,11 @@
 
   // ── constants ──────────────────────────────────────────────────────────────
   const activityOptions: ActivityOption[] = [
-    { label: '久坐',    shortLabel: '久坐 (几乎不运动)',          multiplier: 1.2   },
-    { label: '轻度活动', shortLabel: '轻度活动 (每周 1–3 天)',    multiplier: 1.375 },
-    { label: '中度活动', shortLabel: '中度活动 (每周 3–5 天)',    multiplier: 1.55  },
-    { label: '高度活动', shortLabel: '高度活动 (每周 6–7 天)',    multiplier: 1.725 },
-    { label: '极高活动', shortLabel: '极高活动 (体力劳动/运动员)', multiplier: 1.9   },
+    { label: '久坐',    shortLabel: '久坐 (幾乎不運動)',          multiplier: 1.2   },
+    { label: '輕度活動', shortLabel: '輕度活動 (每週 1–3 天)',    multiplier: 1.375 },
+    { label: '中度活動', shortLabel: '中度活動 (每週 3–5 天)',    multiplier: 1.55  },
+    { label: '高度活動', shortLabel: '高度活動 (每週 6–7 天)',    multiplier: 1.725 },
+    { label: '極高活動', shortLabel: '極高活動 (體力勞動/運動員)', multiplier: 1.9   },
   ];
 
   // ── state ──────────────────────────────────────────────────────────────────
@@ -75,21 +75,21 @@
 
   // ── derived: display labels ────────────────────────────────────────────────
   const goalLabel = $derived(
-    goal === 'cut' ? '减脂' : goal === 'bulk' ? '增肌' : '维持'
+    goal === 'cut' ? '減脂' : goal === 'bulk' ? '增肌' : '維持'
   );
   const goalNote = $derived(
     goal === 'cut'  ? 'TDEE − 500 kcal' :
     goal === 'bulk' ? 'TDEE + 300 kcal' :
-                      '维持当前体重'
+                      '維持當前體重'
   );
 </script>
 
 <div class="page-body">
   <!-- ── intro ──────────────────────────────────────────────────────────────── -->
   <div class="intro">
-    <h2>TDEE 卡路里计算</h2>
+    <h2>TDEE 卡路里計算</h2>
     <p class="lede">
-      基于 Mifflin-St Jeor 公式精确计算基础代谢率（BMR）与每日总能量消耗（TDEE），并按减脂、维持或增肌目标推算宏量营养素配比。
+      基於 Mifflin-St Jeor 公式精確計算基礎代謝率（BMR）與每日總能量消耗（TDEE），並按減脂、維持或增肌目標推算宏量營養素配比。
     </p>
   </div>
 
@@ -102,7 +102,7 @@
 
         <!-- gender -->
         <div class="field">
-          <span class="field-label">性别</span>
+          <span class="field-label">性別</span>
           <div class="radio-group">
             <label class="radio-opt">
               <input type="radio" name="tdee-gender" value="male" bind:group={gender} />
@@ -117,10 +117,10 @@
 
         <!-- age -->
         <div class="field">
-          <label class="field-label" for="tdee-age">年龄</label>
+          <label class="field-label" for="tdee-age">年齡</label>
           <div class="input-wrap">
             <input id="tdee-age" type="number" min="10" max="100" bind:value={age} />
-            <span class="unit">岁</span>
+            <span class="unit">歲</span>
           </div>
         </div>
 
@@ -135,7 +135,7 @@
 
         <!-- weight -->
         <div class="field">
-          <label class="field-label" for="tdee-weight">体重</label>
+          <label class="field-label" for="tdee-weight">體重</label>
           <div class="input-wrap">
             <input id="tdee-weight" type="number" min="20" max="300" step="0.1" bind:value={weight} />
             <span class="unit">kg</span>
@@ -144,7 +144,7 @@
 
         <!-- activity -->
         <div class="field field-full">
-          <label class="field-label" for="tdee-activity">活动水平</label>
+          <label class="field-label" for="tdee-activity">活動水平</label>
           <div class="select-wrap">
             <select id="tdee-activity" bind:value={activityIndex}>
               {#each activityOptions as opt, i}
@@ -156,11 +156,11 @@
 
         <!-- goal -->
         <div class="field field-full">
-          <label class="field-label" for="tdee-goal">目标</label>
+          <label class="field-label" for="tdee-goal">目標</label>
           <div class="select-wrap">
             <select id="tdee-goal" bind:value={goal}>
-              <option value="cut">减脂</option>
-              <option value="maintain">维持</option>
+              <option value="cut">減脂</option>
+              <option value="maintain">維持</option>
               <option value="bulk">增肌</option>
             </select>
           </div>
@@ -188,22 +188,22 @@
       <div class="stat-grid">
 
         <div class="stat-card">
-          <span class="stat-label">基础代谢率 BMR</span>
-          <span class="stat-value">{bmr.toLocaleString('zh-CN')}</span>
+          <span class="stat-label">基礎代謝率 BMR</span>
+          <span class="stat-value">{bmr.toLocaleString('zh-TW')}</span>
           <span class="stat-unit">千卡 / 天</span>
-          <span class="stat-note">完全静息状态</span>
+          <span class="stat-note">完全靜息狀態</span>
         </div>
 
         <div class="stat-card stat-card--tdee">
-          <span class="stat-label">每日总消耗 TDEE</span>
-          <span class="stat-value">{tdee.toLocaleString('zh-CN')}</span>
+          <span class="stat-label">每日總消耗 TDEE</span>
+          <span class="stat-value">{tdee.toLocaleString('zh-TW')}</span>
           <span class="stat-unit">千卡 / 天</span>
           <span class="stat-note">{activityOptions[activityIndex].label}</span>
         </div>
 
         <div class="stat-card stat-card--goal">
-          <span class="stat-label">目标热量（{goalLabel}）</span>
-          <span class="stat-value">{targetCalories.toLocaleString('zh-CN')}</span>
+          <span class="stat-label">目標熱量（{goalLabel}）</span>
+          <span class="stat-value">{targetCalories.toLocaleString('zh-TW')}</span>
           <span class="stat-unit">千卡 / 天</span>
           <span class="stat-note">{goalNote}</span>
         </div>
@@ -212,12 +212,12 @@
 
       <!-- Macro breakdown -->
       <div class="card section-card">
-        <h3 class="section-title">宏量营养素分配</h3>
+        <h3 class="section-title">宏量營養素分配</h3>
         <div class="macro-list">
 
           <div class="macro-row">
             <span class="dot dot--protein"></span>
-            <span class="macro-name">蛋白质</span>
+            <span class="macro-name">蛋白質</span>
             <div class="bar-track">
               <div class="bar-fill bar-fill--protein"
                    style="width:{macroRatios.protein * 100}%"></div>
@@ -253,12 +253,12 @@
 
       <!-- Reference table -->
       <div class="card section-card">
-        <h3 class="section-title">各活动水平 TDEE 对照表</h3>
+        <h3 class="section-title">各活動水平 TDEE 對照表</h3>
         <table class="ref-table">
           <thead>
             <tr>
-              <th>活动水平</th>
-              <th class="num-col">倍数</th>
+              <th>活動水平</th>
+              <th class="num-col">倍數</th>
               <th class="num-col">TDEE（千卡）</th>
             </tr>
           </thead>
@@ -268,7 +268,7 @@
                 <td>{opt.shortLabel}</td>
                 <td class="num-col">×{opt.multiplier}</td>
                 <td class="num-col">
-                  {Math.round(bmr * opt.multiplier).toLocaleString('zh-CN')}
+                  {Math.round(bmr * opt.multiplier).toLocaleString('zh-TW')}
                 </td>
               </tr>
             {/each}

@@ -59,7 +59,7 @@
       status = 'ok';
       errorMsg = '';
     } catch (e) {
-      output = '❌ 无效的 JSON';
+      output = '❌ 無效的 JSON';
       status = 'error';
       errorMsg = (e as Error).message;
     }
@@ -79,7 +79,7 @@
     try {
       const parsed = tryParse();
       if (!Array.isArray(parsed)) {
-        fail('顶层数据必须是数组才能转换为 CSV');
+        fail('頂層資料必須是陣列才能轉換為 CSV');
         return;
       }
       succeed(Papa.unparse(parsed as object[]));
@@ -100,10 +100,10 @@
     if (!output) return;
     try {
       await navigator.clipboard.writeText(output);
-      copyMsg = '已复制！';
+      copyMsg = '已複製！';
       setTimeout(() => { copyMsg = ''; }, 2000);
     } catch {
-      copyMsg = '复制失败';
+      copyMsg = '複製失敗';
     }
   }
 </script>
@@ -111,17 +111,17 @@
 <div class="page-body">
   <div class="intro">
     <h2>JSON 工具</h2>
-    <p class="lede">格式化 · 压缩 · 校验 · 转 YAML / CSV · 纯浏览器处理</p>
+    <p class="lede">格式化 · 壓縮 · 校驗 · 轉 YAML / CSV · 純瀏覽器處理</p>
   </div>
 
   <div class="toolbar">
     <button class="btn-primary" onclick={handleFormat}>格式化</button>
-    <button class="btn-primary" onclick={handleMinify}>压缩</button>
-    <button class="btn-primary" onclick={handleValidate}>校验</button>
+    <button class="btn-primary" onclick={handleMinify}>壓縮</button>
+    <button class="btn-primary" onclick={handleValidate}>校驗</button>
     <button class="btn-primary" onclick={handleToYaml}>转 YAML</button>
     <button class="btn-primary" onclick={handleToCsv}>转 CSV</button>
     <button class="ghost" onclick={handleClear}>清空</button>
-    <button class="ghost btn-copy" onclick={handleCopy}>{copyMsg || '复制结果'}</button>
+    <button class="ghost btn-copy" onclick={handleCopy}>{copyMsg || '複製結果'}</button>
     {#if statusLabel}
       <span class="badge badge--{statusLabel}">
         {statusLabel === 'ok' ? '✓' : statusLabel === 'error' ? '✗' : '…'}
@@ -135,12 +135,12 @@
 
   <div class="panels">
     <div class="panel">
-      <label class="panel-label" for="json-input">输入 JSON</label>
+      <label class="panel-label" for="json-input">輸入 JSON</label>
       <textarea
         id="json-input"
         class="code-area"
         bind:value={input}
-        placeholder={'粘贴或输入 JSON，例如：\n{\n  "key": "value"\n}'}
+        placeholder={'貼上或輸入 JSON，例如：\n{\n  "key": "value"\n}'}
         spellcheck="false"
         autocomplete="off"
         autocorrect="off"
@@ -148,13 +148,13 @@
       ></textarea>
     </div>
     <div class="panel">
-      <label class="panel-label" for="json-output">输出结果</label>
+      <label class="panel-label" for="json-output">輸出結果</label>
       <textarea
         id="json-output"
         class="code-area code-area--output"
         value={output}
         readonly
-        placeholder="结果将显示在这里…"
+        placeholder="結果將顯示在這裡…"
         spellcheck="false"
       ></textarea>
     </div>

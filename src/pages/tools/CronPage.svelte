@@ -12,24 +12,24 @@
   }
 
   const FIELDS: CronField[] = [
-    { label: '分钟', placeholder: '0-59', min: 0, max: 59 },
-    { label: '小时', placeholder: '0-23', min: 0, max: 23 },
+    { label: '分鐘', placeholder: '0-59', min: 0, max: 59 },
+    { label: '小時', placeholder: '0-23', min: 0, max: 23 },
     { label: '日期', placeholder: '1-31', min: 1, max: 31 },
     { label: '月份', placeholder: '1-12', min: 1, max: 12, names: ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] },
     { label: '星期', placeholder: '0-6', min: 0, max: 6, names: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] },
   ];
 
   const PRESETS = [
-    { label: '每分钟',       cron: '* * * * *' },
-    { label: '每小时',       cron: '0 * * * *' },
+    { label: '每分鐘',       cron: '* * * * *' },
+    { label: '每小時',       cron: '0 * * * *' },
     { label: '每天午夜',     cron: '0 0 * * *' },
     { label: '每天中午',     cron: '0 12 * * *' },
-    { label: '每周一上午9点', cron: '0 9 * * 1' },
-    { label: '每月1号零时',  cron: '0 0 1 * *' },
+    { label: '每週一上午9點', cron: '0 9 * * 1' },
+    { label: '每月1號零時',  cron: '0 0 1 * *' },
     { label: '每年元旦',     cron: '0 0 1 1 *' },
-    { label: '工作日早9点',  cron: '0 9 * * 1-5' },
-    { label: '每15分钟',     cron: '*/15 * * * *' },
-    { label: '每5分钟',      cron: '*/5 * * * *' },
+    { label: '工作日早9點',  cron: '0 9 * * 1-5' },
+    { label: '每15分鐘',     cron: '*/15 * * * *' },
+    { label: '每5分鐘',      cron: '*/5 * * * *' },
   ];
 
   // ── State ────────────────────────────────────────────────────────────────
@@ -63,13 +63,13 @@
   }
 
   function getError(parts: string[]): string {
-    if (parts.length !== 5) return `需要 5 个字段，当前有 ${parts.length} 个`;
+    if (parts.length !== 5) return `需要 5 個欄位，當前有 ${parts.length} 個`;
     for (let i = 0; i < 5; i++) {
       if (!validateField(parts[i], FIELDS[i])) {
-        return `${FIELDS[i].label}字段无效："${parts[i]}"（范围 ${FIELDS[i].min}–${FIELDS[i].max}）`;
+        return `${FIELDS[i].label}欄位無效："${parts[i]}"（範圍 ${FIELDS[i].min}–${FIELDS[i].max}）`;
       }
     }
-    return '格式无效';
+    return '格式無效';
   }
 
   // ── Human-readable description ───────────────────────────────────────────
@@ -95,12 +95,12 @@
     if (dom !== '*') parts.push(`${describeField(dom, FIELDS[2])}日`);
     if (dow !== '*') parts.push(`每${describeField(dow, FIELDS[4])}`);
     if (hr !== '*') {
-      const minPart = min === '*' ? '每分钟' : min.startsWith('*/') ? `每${min.slice(2)}分钟` : `${min}分`;
-      parts.push(`${hr === '*' ? '每' : hr}时${minPart}`);
+      const minPart = min === '*' ? '每分鐘' : min.startsWith('*/') ? `每${min.slice(2)}分鐘` : `${min}分`;
+      parts.push(`${hr === '*' ? '每' : hr}時${minPart}`);
     } else if (min !== '*') {
-      parts.push(min.startsWith('*/') ? `每${min.slice(2)}分钟` : `每小时第${min}分`);
+      parts.push(min.startsWith('*/') ? `每${min.slice(2)}分鐘` : `每小時第${min}分`);
     } else {
-      parts.push('每分钟');
+      parts.push('每分鐘');
     }
     return parts.join(' ');
   }
@@ -181,8 +181,8 @@
 
 <div class="page-body">
   <div class="intro">
-    <h2>Cron 表达式解析器</h2>
-    <p class="lede">可视化配置定时任务 · 查看下次执行时间 · 纯浏览器</p>
+    <h2>Cron 表達式解析器</h2>
+    <p class="lede">可視化配置定時任務 · 查看下次執行時間 · 純瀏覽器</p>
   </div>
 
   <!-- Input -->
@@ -194,10 +194,10 @@
         class:is-ok={isValid}
         type="text"
         spellcheck="false"
-        placeholder="输入 Cron 表达式，例如：0 9 * * 1-5"
+        placeholder="輸入 Cron 表達式，例如：0 9 * * 1-5"
         bind:value={cronExpr}
       />
-      <button class="ghost" onclick={copyCron}>{copied ? '✓ 已复制' : '复制'}</button>
+      <button class="ghost" onclick={copyCron}>{copied ? '✓ 已複製' : '複製'}</button>
     </div>
 
     <div class="field-hints">
@@ -216,7 +216,7 @@
   <!-- Next runs -->
   {#if nextRuns.length > 0}
     <div class="card">
-      <div class="section-label">接下来 {nextRuns.length} 次执行</div>
+      <div class="section-label">接下來 {nextRuns.length} 次執行</div>
       <ul class="run-list">
         {#each nextRuns as d, i (i)}
           <li class="run-item">
@@ -230,7 +230,7 @@
 
   <!-- Presets -->
   <div class="card">
-    <div class="section-label">常用预设</div>
+    <div class="section-label">常用預設</div>
     <div class="presets">
       {#each PRESETS as p}
         <button class="preset-btn" class:active={cronExpr === p.cron} onclick={() => { cronExpr = p.cron; }}>
@@ -243,10 +243,10 @@
 
   <!-- Field reference -->
   <div class="card">
-    <div class="section-label">字段参考</div>
+    <div class="section-label">欄位參考</div>
     <div class="ref-table">
       <div class="ref-header">
-        <span>字段</span><span>范围</span><span>特殊值示例</span>
+        <span>欄位</span><span>範圍</span><span>特殊值示例</span>
       </div>
       {#each FIELDS as f, i}
         <div class="ref-row">
@@ -265,7 +265,7 @@
     <p class="ref-note">
       <code>*</code> 任意值 &nbsp;·&nbsp;
       <code>*/n</code> 每 n 步 &nbsp;·&nbsp;
-      <code>a-b</code> 范围 &nbsp;·&nbsp;
+      <code>a-b</code> 範圍 &nbsp;·&nbsp;
       <code>a,b</code> 列表
     </p>
   </div>
