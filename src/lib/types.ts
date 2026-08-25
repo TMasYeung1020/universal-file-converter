@@ -1,7 +1,7 @@
 // Core type definitions for the universal file converter.
 // Each "Format" is a node in the conversion graph; each "Converter" is an edge.
 
-export type FormatCategory = 'document' | 'image' | 'data';
+export type FormatCategory = 'document' | 'image' | 'data' | 'audio' | 'spreadsheet' | 'presentation';
 
 export interface Format {
   /** Unique id used in the converter graph (e.g. "markdown", "pdf", "png"). */

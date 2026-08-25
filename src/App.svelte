@@ -82,7 +82,10 @@
       </div>
     {:else}
       <div class="empty">
-        <p>支持文档 (MD / HTML / DOCX / PDF / TXT) · 图片 (PNG / JPG / WebP / SVG) · 数据 (JSON / CSV / YAML / TOML / XML)</p>
+        <p>
+          支持 <strong>19 种格式</strong> · 文档 (MD/HTML/DOCX/PDF/TXT) · 图片 (PNG/JPG/WebP/SVG) · 数据 (JSON/CSV/YAML/TOML/XML)
+          · 表格 (XLSX) · 演示 (PPTX) · 音频 (WAV/MP3)
+        </p>
       </div>
     {/if}
   </main>

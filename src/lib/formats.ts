@@ -121,6 +121,44 @@ export const FORMATS: Format[] = [
     label: 'XML',
     description: 'Extensible Markup Language',
   },
+
+  // ---------- Spreadsheet ----------
+  {
+    id: 'xlsx',
+    category: 'spreadsheet',
+    mimeTypes: ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+    extensions: ['.xlsx', '.xls'],
+    label: 'Excel (XLSX)',
+    description: 'Microsoft Excel workbook',
+  },
+
+  // ---------- Presentation ----------
+  {
+    id: 'pptx',
+    category: 'presentation',
+    mimeTypes: ['application/vnd.openxmlformats-officedocument.presentationml.presentation'],
+    extensions: ['.pptx', '.ppt'],
+    label: 'PowerPoint (PPTX)',
+    description: 'Microsoft PowerPoint slides',
+  },
+
+  // ---------- Audio ----------
+  {
+    id: 'wav',
+    category: 'audio',
+    mimeTypes: ['audio/wav', 'audio/x-wav', 'audio/wave'],
+    extensions: ['.wav', '.wave'],
+    label: 'WAV',
+    description: 'Uncompressed audio',
+  },
+  {
+    id: 'mp3',
+    category: 'audio',
+    mimeTypes: ['audio/mpeg', 'audio/mp3'],
+    extensions: ['.mp3'],
+    label: 'MP3',
+    description: 'Compressed audio',
+  },
 ];
 
 const byId = new Map<string, Format>();

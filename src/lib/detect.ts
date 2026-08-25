@@ -19,6 +19,13 @@ const MAGIC: MagicMatcher[] = [
   { formatId: 'gif', bytes: [0x47, 0x49, 0x46, 0x38] }, // GIF8
   { formatId: 'webp', bytes: [0x57, 0x45, 0x42, 0x50], offset: 8 }, // WEBP at offset 8 (after "RIFF" + size)
   { formatId: 'pdf', bytes: [0x25, 0x50, 0x44, 0x46] }, // %PDF
+  { formatId: 'wav', bytes: [0x57, 0x41, 0x56, 0x45], offset: 8 }, // WAVE at offset 8 (after "RIFF" + size)
+  // MP3 has two common starts: ID3v2 tag ("ID3") or MPEG frame sync (0xFF 0xFB/0xFA/...).
+  { formatId: 'mp3', bytes: [0x49, 0x44, 0x33] }, // ID3
+  { formatId: 'mp3', bytes: [0xff, 0xfb] }, // MPEG frame sync
+  { formatId: 'mp3', bytes: [0xff, 0xfa] },
+  { formatId: 'mp3', bytes: [0xff, 0xf3] },
+  { formatId: 'mp3', bytes: [0xff, 0xf2] },
 ];
 
 function matchMagic(bytes: Uint8Array): Format | undefined {
