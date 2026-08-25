@@ -42,9 +42,9 @@
       label: '文字 & 排版工具',
       color: '160',
       tools: [
-        { name: '字数 & 字符统计', desc: '字数 · 段落 · 阅读时间', route: '/tools/wordcount', live: false },
-        { name: '文字 Diff 比对', desc: '红绿高亮增删内容', route: '/tools/diff', live: false },
-        { name: '繁简 / 全半形转换', desc: '批量替换', route: '/tools/convert-text', live: false },
+        { name: '字数 & 字符统计', desc: '字数 · 段落 · 阅读时间', route: '/tools/wordcount', live: true },
+        { name: '文字 Diff 比对', desc: '红绿高亮增删内容', route: '/tools/diff', live: true },
+        { name: '繁简 / 全半形转换', desc: '批量替换', route: '/tools/convert-text', live: true },
       ],
     },
     {
@@ -52,10 +52,10 @@
       label: '日常计算器',
       color: '142',
       tools: [
-        { name: '复利 & 定投计算器', desc: '资产成长曲线 & 表格', route: '/tools/compound', live: false },
-        { name: '房贷试算', desc: '等额本息 & 本金，月还款明细', route: '/tools/mortgage', live: false },
-        { name: 'TDEE 卡路里计算', desc: '基础代谢 & 热量需求', route: '/tools/tdee', live: false },
-        { name: '单位转换器', desc: '重量 · 长度 · 储存容量', route: '/tools/units', live: false },
+        { name: '复利 & 定投计算器', desc: '资产成长曲线 & 表格', route: '/tools/compound', live: true },
+        { name: '房贷试算', desc: '等额本息 & 本金，月还款明细', route: '/tools/mortgage', live: true },
+        { name: 'TDEE 卡路里计算', desc: '基础代谢 & 热量需求', route: '/tools/tdee', live: true },
+        { name: '单位转换器', desc: '重量 · 长度 · 储存容量', route: '/tools/units', live: true },
       ],
     },
     {

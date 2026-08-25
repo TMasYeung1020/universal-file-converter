@@ -11,6 +11,13 @@
   import CronPage from './pages/tools/CronPage.svelte';
   import RegExPage from './pages/tools/RegExPage.svelte';
   import PdfToolsPage from './pages/tools/PdfToolsPage.svelte';
+  import WordCountPage from './pages/tools/WordCountPage.svelte';
+  import DiffPage from './pages/tools/DiffPage.svelte';
+  import ConvertTextPage from './pages/tools/ConvertTextPage.svelte';
+  import CompoundPage from './pages/tools/CompoundPage.svelte';
+  import MortgagePage from './pages/tools/MortgagePage.svelte';
+  import TdeePage from './pages/tools/TdeePage.svelte';
+  import UnitsPage from './pages/tools/UnitsPage.svelte';
 
   function hashToRoute(hash: string): string {
     // Strip the leading '#' so we get '/convert', '/', etc.
@@ -61,6 +68,20 @@
       <RegExPage />
     {:else if route === '/tools/pdf'}
       <PdfToolsPage />
+    {:else if route === '/tools/wordcount'}
+      <WordCountPage />
+    {:else if route === '/tools/diff'}
+      <DiffPage />
+    {:else if route === '/tools/convert-text'}
+      <ConvertTextPage />
+    {:else if route === '/tools/compound'}
+      <CompoundPage />
+    {:else if route === '/tools/mortgage'}
+      <MortgagePage />
+    {:else if route === '/tools/tdee'}
+      <TdeePage />
+    {:else if route === '/tools/units'}
+      <UnitsPage />
     {:else}
       <div class="not-found">
         <div class="icon">🚧</div>
